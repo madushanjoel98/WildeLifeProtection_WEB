@@ -1,0 +1,273 @@
+/* =============
+   Widgets
+============= */
+
+/***************** 8.Widget  ****************/
+.widget-panel {
+  padding: 40px 20px;
+  border-radius: 4px;
+  color: #ffffff;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.widget-style-1 i {
+  position: absolute;
+  font-size: 3rem;
+  right: -5px;
+  bottom: 1rem;
+  color: #edf0f0;
+}
+.widget-style-1 h2 {
+  font-size: 32px;
+}
+
+.widget-style-1:hover i {
+  -moz-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
+}
+.widget-style-2 {
+  padding-left: 30px;
+}
+.widget-style-2 i {
+  font-size: 60px;
+  float: right;
+  padding: 25px 30px;
+  margin-top: -40px;
+  margin-right: -20px;
+  color: #edf0f0;
+  background: rgba(255,255,255,0.2);
+}
+.widget-style-2 h2 {
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.profile-widget {
+  background: #ffffff;
+  margin-bottom: 20px;
+}
+
+.bg-profile {
+  height: 100px;
+}
+
+.profile-widget .img-thumbnail {
+  margin-top: -42px;
+  border: none;
+}
+
+.widget-list {
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 0px;
+  padding-bottom: 30px;
+}
+
+.widget-list span {
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.tile-stats {
+  padding: 20px 0px 0px 0px;
+  position: relative;
+  min-height: 128px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.tile-stats .status {
+  margin-top: 0px;
+  padding: 0px 20px 10px 20px;
+}
+
+.status-ab {
+  position: absolute;
+  right: 0;
+}
+
+.mini-stat {
+  background: #fff;
+  padding: 20px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.mini-stat-icon {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  line-height: 60px;
+  text-align: center;
+  font-size: 30px;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  float: left;
+  margin-right: 10px;
+  color: #fff;
+}
+
+.mini-stat-info {
+  font-size: 12px;
+  padding-top: 2px;
+}
+
+.mini-stat-info span {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+
+
+/************* 9.Chat / Todo **********/
+
+.conversation-list {
+  list-style: none;
+  padding: 0px 10px;
+  max-height: 350px;
+}
+
+.conversation-list li {
+  margin-bottom: 24px;
+}
+
+.conversation-list .chat-avatar {
+  width: 40px;
+  display: inline-block;
+  text-align: center;
+  float: left;
+}
+
+.conversation-list .chat-avatar img {
+  width: 100%;
+  border-radius: 100%;
+}
+
+.conversation-list .chat-avatar i {
+  font-size: 12px;
+  font-style: normal;
+}
+
+.conversation-list .ctext-wrap i {
+  display: block;
+  font-style: normal;
+  font-weight: bold;
+  position: relative;
+  font-size: 12px;
+  color: #1a2942;
+}
+
+.conversation-list .conversation-text {
+  display: inline-block;
+  font-size: 12px;
+  float: left;
+  margin-left: 12px;
+  width: 70%;
+}
+
+.conversation-list .ctext-wrap {
+  padding: 10px;
+  background: #d8f2f3;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  display: inline-block;
+}
+
+.conversation-list .ctext-wrap p {
+  margin: 0px;
+  padding-top: 3px;
+}
+
+.conversation-list .ctext-wrap:after {
+  right: 100%;
+  top: 20%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(213,242,239,0);
+  border-right-color: #d8f2f3;
+  border-width: 5px;
+  margin-top: -5px;
+}
+
+.conversation-list .odd .chat-avatar {
+  float: right !important;
+}
+
+.conversation-list .odd .conversation-text {
+  width: 70% !important;
+  margin-right: 12px;
+  text-align: right;
+  float: right !important;
+}
+
+.conversation-list .odd .ctext-wrap {
+  background: #e8e9ec !important;
+}
+
+.conversation-list .odd .ctext-wrap i {
+  color: #acacac;
+}
+
+.conversation-list .odd .ctext-wrap:after {
+  left: 100% !important;
+  top: 20% !important;
+  border-color: rgba(238,238,242,0)!important;
+  border-left-color: #e8e9ec !important;
+}
+
+/****ToDo List****/
+.todoapp {
+  padding: 0 30px 20px 30px !important;
+}
+.todo-list li{
+  border:0px;
+  margin:0px;
+  border-radius:0px;
+  border-bottom:1px solid transparent;
+  padding: 15px 0 !important;
+}
+.todo-list li:last-of-type {
+  border-bottom: none;
+}
+
+.todo-text {
+  font-family: $font-secondary;
+}
+
+
+
+/* Carousel */
+.velonic-carousel {
+  padding: 20px 30px;
+}
+
+.slider-bg {
+  background: url(../images/gallery/11.jpg) center;
+  background-size: cover;
+  position: relative;
+}
+
+.slider-overlay {
+  background: rgba(0,0,0,0.6);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.owl-buttons {
+  display: none;
+}

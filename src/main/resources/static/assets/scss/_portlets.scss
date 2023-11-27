@@ -1,0 +1,128 @@
+/* =============
+   Portlets
+============= */
+
+.portlet {
+  margin-bottom: 20px;
+  background: #fff;
+  position: relative;
+  transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+}
+
+.portlet .portlet-heading {
+  padding: 20px 25px;
+  line-height: 38px;
+  min-height: 39px;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.portlet .portlet-heading .portlet-title {
+  float: left;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.portlet .portlet-heading .portlet-widgets {
+  position: relative;
+  text-align: right;
+  float: right;
+  padding-left: 15px;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 16px;
+}
+
+.portlet .portlet-body {
+  background: #fff;
+  padding: 20px;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.portlet .portlet-heading .portlet-widgets .divider {
+  margin: 0 5px;
+}
+
+.portlet .portlet-heading.bg-purple a, .portlet .portlet-heading.bg-info a, .portlet .portlet-heading.bg-success a, .portlet .portlet-heading.bg-primary a, .portlet .portlet-heading.bg-danger a, .portlet .portlet-heading.bg-warning a, .portlet .portlet-heading.bg-inverse a,.portlet .portlet-heading.bg-pink a {
+  color: #fff;
+}
+
+.portlet .portlet-heading a {
+  color: $dark;
+  font-size: 18px;
+}
+
+.portlet-disabled {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+  background: rgba($dark,0.5);
+}
+
+.portlet-loader {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -20px 0 0 -20px;
+  z-index: 1;
+}
+
+.spinner {
+  margin: 0 auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 5px solid rgba($primary, 0.3);
+  border-right: 5px solid rgba($primary, 0.3);
+  border-bottom: 5px solid rgba($primary, 0.3);
+  border-left: 5px solid $primary;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+
+.spinner,
+.spinner:after {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

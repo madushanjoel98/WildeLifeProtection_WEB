@@ -1,0 +1,25 @@
+/* =============
+   pages-contact
+============= */
+
+.media-main {
+  .info {
+    overflow: hidden;
+  }
+}
+
+.social-links {
+  li {
+    a {
+      background: $light;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      display: inline-block;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      color: $menu-item-color;
+    }
+  }
+}

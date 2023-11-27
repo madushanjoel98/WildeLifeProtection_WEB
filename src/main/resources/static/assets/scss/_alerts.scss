@@ -1,0 +1,81 @@
+/* =============
+   Alerts
+============= */
+/* =============
+   Alerts
+============= */
+.alert {
+  position: relative;
+
+  .alert-link {
+    font-weight: 600;
+  }
+}
+
+.alert-dismissable .close, .alert-dismissible .close {
+  opacity: 0.9;
+}
+
+.alert-icon {
+  padding-left: 50px;
+
+  i {
+    position: absolute;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    top: 0;
+    line-height: 50px;
+    font-size: 22px;
+  }
+}
+
+.alert-success {
+  color: $primary;
+  background-color: lighten($primary,40%);
+  border-color: lighten($primary,20%);
+  .alert-link {
+    color: darken($primary,10%);
+  }
+  hr {
+    border-top-color: darken($primary,10%);
+  }
+}
+
+
+.alert-info {
+  color: $info;
+  background-color: lighten($info,35%);
+  border-color: lighten($info,20%);
+  .alert-link {
+    color: darken($info,10%);
+  }
+  hr {
+    border-top-color: darken($info,10%);
+  }
+}
+
+.alert-warning {
+  color: $warning;
+  background-color: lighten($warning, 25%);
+  border-color: lighten($warning, 20%);
+  .alert-link {
+    color: darken($warning, 10%);
+  }
+  hr {
+    border-top-color: darken($warning, 10%);
+  }
+}
+
+.alert-danger {
+  color: $danger;
+  background-color: lighten($danger,35%);
+  border-color: lighten($danger,20%);
+  .alert-link {
+    color: darken($danger,10%);
+  }
+  hr {
+    border-top-color: darken($danger,10%);
+  }
+}

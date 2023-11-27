@@ -1,0 +1,99 @@
+/* =============
+   Charts
+============= */
+
+/* Morris chart */
+.morris-hover.morris-default-style {
+  border-radius: 5px;
+  padding: 10px 12px;
+  background: #36404a;
+  border: none;
+  color: #ffffff !important;
+  font-family: $font-primary;
+}
+
+.morris-hover.morris-default-style .morris-hover-point {
+  color: #f4f8fb !important;
+}
+
+// Float chart
+#flotTip {
+  padding: 8px 12px;
+  background-color: #36404a;
+  z-index: 100;
+  color: #ffffff;
+  opacity: 0.9;
+  font-size: 13px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.legend tr {
+  height: 20px;
+}
+
+.legendLabel {
+  padding-left: 5px !important;
+  line-height: 10px;
+  padding-right: 10px;
+}
+
+#legend { 
+  position: absolute; 
+  top: 0; 
+  right: 15px; 
+}
+
+
+/* Sparkline chart */
+.jqstooltip {
+  background-color: #36404a !important;
+  padding: 5px 10px !important;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  border-color: #36404a !important;
+}
+
+.jqsfield {
+  font-size: 12px !important;
+  line-height: 18px !important;
+}
+
+/** EASY PIE CHART **/
+.chart {
+  position: relative;
+  display: inline-block;
+  width: 110px;
+  height: 110px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.chart.chart-widget-pie {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.chart canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.percent {
+  display: inline-block;
+  line-height: 110px;
+  z-index: 2;
+}
+
+.percent:after {
+  content: '%';
+  margin-left: 0.1em;
+  font-size: .8em;
+}

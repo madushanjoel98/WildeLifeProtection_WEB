@@ -10,4 +10,5 @@ public class WildeLifeProtectionWebApplication {
 		SpringApplication.run(WildeLifeProtectionWebApplication.class, args);
 	}
 
+
 }
