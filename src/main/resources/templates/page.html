@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="\comons\header.html">
+    </head>
+<body>
+    
+<div th:if="${page}">
+<div th:insert="${page}"></div>
+</div>
+
+
+
+
+    <!-- Footer fragment -->
+<div th:replace="\comons\footer.html"></div>
+
+</body>
+
+</html>

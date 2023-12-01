@@ -8,7 +8,7 @@ public class CommonController {
 
 @GetMapping("/")
 public String redirectd() {
-	return "redirect:/public/home";
+	return "redirect:/public/";
 }
 
 }
