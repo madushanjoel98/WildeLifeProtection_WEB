@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Register</title> 
+    <style>
+        /* Add your styles for better appearance */
+        /* Example styles: */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .registerbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head> 
+<body> 
+    <div class="container"> 
+        <h1>Register</h1> 
+        <p>Please fill in this form to create an account.</p> 
+        <hr> 
+
+        <form th:object="${reg}" th:action="@{/admin/registers}" method="post"> 
+            <label for="username"><b>Username</b></label> 
+            <input th:field="*{username}" type="text" placeholder="Enter Username" name="username" id="username" required> 
+
+            <label for="password"><b>Password</b></label> 
+            <input th:field="*{password}" type="password" placeholder="Enter Password" name="password" id="password" required> 
+
+            <!-- Add confirmation password field -->
+            <label for="confirmPassword"><b>Confirm Password</b></label> 
+            <input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" required> 
+
+            <button type="submit" class="registerbtn">Register</button> 
+        </form> 
+    </div> 
+</body> 
+</html>

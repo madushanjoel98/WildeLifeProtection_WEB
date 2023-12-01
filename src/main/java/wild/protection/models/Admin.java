@@ -1,11 +1,18 @@
 package wild.protection.models;
 
 import javax.persistence.*;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 //ok
 @Entity
-public class Admin {
+@Table(name = "admin")
+public class Admin implements UserDetails {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -49,10 +56,7 @@ public class Admin {
         return accountNonLocked;
     }
 
-    public void setAccountNonLocked(final Boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
+   
     public String getPassword() {
         return password;
     }
@@ -84,5 +88,35 @@ public class Admin {
     public void setCountryid(final Countries countryid) {
         this.countryid = countryid;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        return List.of(() -> "read");
+    }
+
+    @Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return accountNonLocked;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	public void setAccountNonLocked(Boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
 
 }
