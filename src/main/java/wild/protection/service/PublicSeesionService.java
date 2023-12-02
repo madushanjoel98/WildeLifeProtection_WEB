@@ -60,4 +60,13 @@ public class PublicSeesionService {
 	public PublicLogin logedpublic(HttpSession httpSession) {
 		return (PublicLogin) httpSession.getAttribute(loginPara);
 	}
+	public void logout(HttpSession httpSession) throws PublicExpections{
+		try {
+			httpSession.removeAttribute(loginPara);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw new PublicExpections(e.getMessage());
+		}
+		
+	}
 }

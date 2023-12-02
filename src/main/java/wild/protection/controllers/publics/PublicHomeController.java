@@ -68,16 +68,14 @@ public class PublicHomeController {
 		}
 		return "redirect:/public/dashbord";
 	}
-	@GetMapping("/dashbord")
-	public String dashborad(Model model,HttpSession session,RedirectAttributes attributes) {
-		if(publicSeesionService.logedpublic(session)==null) {
-			attributes.addFlashAttribute("error","Please Sign UP");
+	@GetMapping("/logout")
+	public String logoout(RedirectAttributes attributes,HttpSession session) {
+		try {
+			publicSeesionService.logout(session);
+		} catch (PublicExpections e) {
+			attributes.addFlashAttribute("error",e.getMessage());
 			return "redirect:/public/login";
 		}
-		model.addAttribute("reg", new PublicLogin());
-		
-		model.addAttribute("country",countriesRepository.findAll());
-		model.addAttribute(Commoncontexts.PAGE_MODEL, "public/login/publiclogin.html");
-		return "page";
+		return "redirect:/public/login?logout";
 	}
 }

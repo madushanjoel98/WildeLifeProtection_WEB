@@ -21,19 +21,12 @@ public class PublicComplain {
     )
     private Long pcompId;
 
-    @Column(nullable = false, length = 45)
-    private String email;
-
-    @Column(length = 45)
-    private String mobileNumber;
-
-    @Column(nullable = false)
-    private Integer disrictid;
-
-    @Column(nullable = false, length = 45)
+   
+   
+    @Column(nullable = false, length = 100)
     private String locationDetails;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 900)
     private String complain;
 
     @OneToMany(mappedBy = "complain")
@@ -57,29 +50,8 @@ public class PublicComplain {
         this.pcompId = pcompId;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(final String email) {
-        this.email = email;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(final String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public Integer getDisrictid() {
-        return disrictid;
-    }
-
-    public void setDisrictid(final Integer disrictid) {
-        this.disrictid = disrictid;
-    }
+ 
+   
 
     public String getLocationDetails() {
         return locationDetails;

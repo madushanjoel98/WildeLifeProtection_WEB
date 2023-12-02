@@ -27,7 +27,7 @@ public class PublicLogin {
     @Column(unique = true, length = 45)
     private String mobilenumber;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 512)
     private String password;
 
     @OneToMany(mappedBy = "publicid")
