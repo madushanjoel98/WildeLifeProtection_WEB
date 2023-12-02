@@ -37,7 +37,7 @@ public class AuthProvider implements AuthenticationProvider {
 		String password = authentication.getCredentials().toString();
 
 		Optional<Admin> userOptional = userRepository.findByUsername(username);
-System.out.println(":::::"+username);
+        System.out.println(":::::"+username);
 		if (!userOptional.isPresent()) {
 			throw new BadCredentialsException("User not found");
 		}

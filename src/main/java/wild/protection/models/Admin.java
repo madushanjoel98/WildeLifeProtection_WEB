@@ -36,6 +36,9 @@ public class Admin implements UserDetails {
 
     @Column
     private String username;
+    
+    @Column
+    private String role;
 
     @ManyToMany(mappedBy = "accessforAdmins")
     private Set<Accesslevel> accessforAccesslevels;
@@ -89,7 +92,15 @@ public class Admin implements UserDetails {
         this.countryid = countryid;
     }
 
-    @Override
+    public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
         return List.of(() -> "read");
