@@ -1,6 +1,9 @@
 package wild.protection.models;
 
 import javax.persistence.*;
+
+import lombok.Data;
+
 import java.util.Set;
 
 

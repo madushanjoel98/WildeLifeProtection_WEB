@@ -47,7 +47,23 @@ public class Admin implements UserDetails {
     @JoinColumn(name = "countryid_id")
     private Countries countryid;
 
-    public Long getUserId() {
+    
+    @OneToMany(mappedBy = "admin")
+    private Set<AcceptedComplains> acceptComplain;
+    
+    
+    @OneToMany(mappedBy = "admin")
+    private Set<RejectResons> rejectComplain;
+
+	public Set<AcceptedComplains> getAcceptComplain() {
+		return acceptComplain;
+	}
+
+	public void setAcceptComplain(Set<AcceptedComplains> acceptComplain) {
+		this.acceptComplain = acceptComplain;
+	}
+
+	public Long getUserId() {
         return userId;
     }
 

@@ -27,6 +27,10 @@ public class RejectResons {
     @JoinColumn(name = "complaintid_id", nullable = false)
     private PublicComplain complaintid;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id", nullable = false)
+    private Admin admin;
+
     public Long getIdrejectResons() {
         return idrejectResons;
     }

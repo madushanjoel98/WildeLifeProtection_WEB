@@ -29,7 +29,19 @@ public class AcceptedComplains {
     @JoinColumn(name = "complain_id", nullable = false)
     private PublicComplain complain;
 
-    public Long getIdAccepts() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id", nullable = false)
+    private Admin admin;
+
+    public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
+
+	public Long getIdAccepts() {
         return idAccepts;
     }
 
