@@ -1,6 +1,10 @@
 package wild.protection.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+
+import lombok.NonNull;
+
 import java.util.Set;
 
 
@@ -24,9 +28,11 @@ public class PublicComplain {
    
    
     @Column(nullable = false, length = 100)
+    @NotEmpty(message = "location Details can't be empty")
     private String locationDetails;
 
     @Column(nullable = false, length = 900)
+    @NotEmpty(message = "Complaint can't be empty")
     private String complain;
 
     @OneToMany(mappedBy = "complain")
