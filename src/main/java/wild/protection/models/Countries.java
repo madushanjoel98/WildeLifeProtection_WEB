@@ -33,6 +33,9 @@ public class Countries {
     @OneToMany(mappedBy = "countryid")
     private Set<PublicLogin> countryidPublicLogins;
 
+    @OneToMany(mappedBy = "pcompId")
+    private Set<PublicComplain> publicComplain;
+
     public Integer getId() {
         return id;
     }

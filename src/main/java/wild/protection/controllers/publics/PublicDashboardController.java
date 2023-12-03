@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import wild.protection.models.PublicLogin;
+import wild.protection.repository.CountriesRepository;
 import wild.protection.service.PublicSeesionService;
 import wild.protection.utils.Commoncontexts;
 
@@ -19,12 +20,15 @@ public class PublicDashboardController {
 	@Autowired
 	PublicSeesionService publicSeesionService;
 
+	@Autowired
+	CountriesRepository countriesRepository;
 	@GetMapping("/dashbord")
 	public String dashborad(Model model, HttpSession session, RedirectAttributes attributes) {
 		if (publicSeesionService.logedpublic(session) == null) {
 			attributes.addFlashAttribute("error", "Please Sign UP");
 			return "redirect:/public/login";
 		}
+		model.addAttribute("country",countriesRepository.findAll());
 		model.addAttribute("user", publicSeesionService.logedpublic(session));
 		model.addAttribute(Commoncontexts.PAGE_MODEL, "/public/dashboard/dashboardmain.html");
 		return "velonicpage.html";

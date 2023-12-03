@@ -20,7 +20,7 @@ background: linear-gradient(0deg, rgba(22,38,38,1) 0%, rgba(238,242,251,1) 99%, 
             <div class="row g-0">
               <div class="col-md-6 col-lg-5 d-none d-md-block">
                 <img th:src="@{/img/pix.jpg}" alt="login form" class="img-fluid"
-                  style="border-radius: 1rem 0 0 1rem;" />
+                  style="border-radius: 1rem 0 0 1rem; object-fit: cover;" />
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
@@ -42,8 +42,9 @@ background: linear-gradient(0deg, rgba(22,38,38,1) 0%, rgba(238,242,251,1) 99%, 
                       <label class="form-label" for="form2Example17">Email</label>
                     </div>
                     <div class="form-outline mb-4">
-                      <select th:field="*{countryid}" required class="form-control form-control-lg">
-                          <option th:each="item : ${country}" th:value="${item.id}" th:text="${item.name}">Option Text</option>
+                      <select id="countsel" th:field="*{countryid}" required class="form-control form-control-lg">
+                         
+                        <option th:each="item : ${country}" th:value="${item.id}" th:text="${item.name}">Option Text</option>
                       </select>
                       <label class="form-label" for="form2Example17">Country</label>
                   </div>
@@ -73,6 +74,13 @@ background: linear-gradient(0deg, rgba(22,38,38,1) 0%, rgba(238,242,251,1) 99%, 
       </div>
     </div>
   </section>
+  <script>
+    $(document).ready(function () {
+      $('#countsel').selectize({
+          sortField: 'text'
+      });
+  });
+</script>
 </body>
 
 </html>

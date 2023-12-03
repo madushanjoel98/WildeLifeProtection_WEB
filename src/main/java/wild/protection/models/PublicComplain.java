@@ -39,10 +39,22 @@ public class PublicComplain {
     @JoinColumn(name = "publicid_id", nullable = false)
     private PublicLogin publicid;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id", nullable = false)
+    private Countries countries;
+    
     @OneToMany(mappedBy = "complaintid")
     private Set<RejectResons> complaintidRejectResonses;
 
-    public Long getPcompId() {
+    public Countries getCountries() {
+		return countries;
+	}
+
+	public void setCountries(Countries countries) {
+		this.countries = countries;
+	}
+
+	public Long getPcompId() {
         return pcompId;
     }
 
