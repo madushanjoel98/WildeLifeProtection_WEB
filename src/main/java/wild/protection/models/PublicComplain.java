@@ -1,14 +1,22 @@
 package wild.protection.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.NonNull;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PublicComplain {
 
     @Id
@@ -25,7 +33,9 @@ public class PublicComplain {
     )
     private Long pcompId;
 
-   
+    @Column(nullable = false, length = 90)
+    @NotEmpty(message = "title can't be empty")
+    private String title;
    
     @Column(nullable = false, length = 100)
     @NotEmpty(message = "location Details can't be empty")
@@ -35,11 +45,18 @@ public class PublicComplain {
     @NotEmpty(message = "Complaint can't be empty")
     private String complain;
 
+    
+    @Column(nullable = true)
+    @Min(0)
+    @Max(2)
+    private int review_status=0;
+    @JsonIgnore
     @OneToMany(mappedBy = "complain")
-    private Set<AcceptedComplains> complainAcceptedComplainses;
+    private Set<AcceptedComplains> complainAcceptedComplainses=new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "complain")
-    private Set<Medias> complainMediases;
+    private Set<Medias> complainMediases =new HashSet<>();;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publicid_id", nullable = false)
@@ -48,11 +65,20 @@ public class PublicComplain {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
     private Countries countries;
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "complaintid")
-    private Set<RejectResons> complaintidRejectResonses;
+    private Set<RejectResons> complaintidRejectResonses=new HashSet<>();
 
-    public Countries getCountries() {
+    
+    public int getReview_status() {
+		return review_status;
+	}
+
+	public void setReview_status(int review_status) {
+		this.review_status = review_status;
+	}
+
+	public Countries getCountries() {
 		return countries;
 	}
 
@@ -120,4 +146,13 @@ public class PublicComplain {
         this.complaintidRejectResonses = complaintidRejectResonses;
     }
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 }
+

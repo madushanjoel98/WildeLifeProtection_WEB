@@ -7,7 +7,10 @@
                 <form th:object="${complainr}" method="post" th:action="@{/public/addComplaint}">
 
 
-
+                    <div  class="form-group">
+                        <label  for="inputAddress" class="col-form-label">Title</label>
+                        <input required  th:field="*{title}" type="text" class="form-control" id="inputAddress" placeholder="Title">
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputCity" class="col-form-label">Country</label>

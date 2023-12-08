@@ -1,10 +1,17 @@
 package wild.protection.models;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PublicLogin {
 
     @Id
@@ -29,9 +36,10 @@ public class PublicLogin {
 
     @Column(nullable = false, length = 512)
     private String password;
-
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "publicid")
-    private Set<PublicComplain> publicidPublicComplains;
+    private Set<PublicComplain> publicidPublicComplains =new HashSet();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "countryid_id", nullable = false)

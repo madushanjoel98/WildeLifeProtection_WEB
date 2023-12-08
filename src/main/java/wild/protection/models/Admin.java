@@ -5,6 +5,8 @@ import javax.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +41,8 @@ public class Admin implements UserDetails {
     
     @Column
     private String role;
-
+    
+    @JsonIgnore
     @ManyToMany(mappedBy = "accessforAdmins")
     private Set<Accesslevel> accessforAccesslevels;
 
@@ -47,11 +50,11 @@ public class Admin implements UserDetails {
     @JoinColumn(name = "countryid_id")
     private Countries countryid;
 
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "admin")
     private Set<AcceptedComplains> acceptComplain;
     
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "admin")
     private Set<RejectResons> rejectComplain;
 

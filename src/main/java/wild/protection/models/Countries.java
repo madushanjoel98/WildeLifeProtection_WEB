@@ -2,12 +2,18 @@ package wild.protection.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Countries {
 
     @Id
@@ -30,14 +36,16 @@ public class Countries {
     @Column(nullable = false, length = 100)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "countryid")
-    private Set<Admin> countryidAdmins;
+    private Set<Admin> countryidAdmins =new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "countryid")
-    private Set<PublicLogin> countryidPublicLogins;
-
+    private Set<PublicLogin> countryidPublicLogins =new HashSet<>();
+    @JsonIgnore
     @OneToMany(mappedBy = "pcompId")
-    private Set<PublicComplain> publicComplain;
+    private Set<PublicComplain> publicComplain =new HashSet<>();;
 
     public Integer getId() {
         return id;

@@ -1,0 +1,37 @@
+<div th:each="item : ${allcompains}" >
+           
+        <!-- BEGIN WEATHER WIDGET 1 -->
+        <div class="card bg-dark">
+            <div class="card-body">
+                <div th:if="${item.review_status == 0}">
+                    <span class="label label-warning">Pending</span>
+                </div>
+                <div th:if="${item.review_status == 1}">
+                    <span class="label label-primary">Accepted</span>
+                </div>
+                <div th:if="${item.review_status == 2}">
+                    <span class="label label-danger">Reject</span>
+                </div>
+                
+               
+                
+                <div class="row">
+                
+                     
+                            <div class="text-center">
+                                <canvas id="partly-cloudy-day" width="115" height="115"></canvas>
+                            </div>
+                            <div class="">
+                                <h2 class="m-t-0 text-white"><b th:text="${item.title}">32°</b></h2>
+                                <p class="text-white" th:text="${item.locationDetails}"></p>
+                                <p class="text-white mb-0" th:text="${item.countries.name}"></p>
+                            </div>
+                      
+                   
+                </div><!-- end row -->
+            </div><!-- panel-body -->
+        </div><!-- panel-->
+        <!-- END Weather WIDGET 1 -->
+        
+  
+</div>

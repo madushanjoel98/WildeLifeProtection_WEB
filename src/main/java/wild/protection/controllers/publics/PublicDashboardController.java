@@ -4,6 +4,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +39,7 @@ public class PublicDashboardController {
 			attributes.addFlashAttribute("error", "Please Sign UP");
 			return "redirect:/public/login";
 		}
+		model.addAttribute("allcompains",complainRepository.findByPublicid(publicSeesionService.logedpublic(session)) );
 		model.addAttribute("country", countriesRepository.findAll());
 		model.addAttribute("complainr", new PublicComplain());
 		model.addAttribute("user", publicSeesionService.logedpublic(session));
@@ -45,17 +49,17 @@ public class PublicDashboardController {
 
 	@PostMapping("/addComplaint")
 	public String addComplain(RedirectAttributes attributes, HttpSession session,
-			@ModelAttribute @Valid PublicComplain complain,BindingResult bindingResult) {
+			@ModelAttribute @Valid PublicComplain complain, BindingResult bindingResult) {
 		if (publicSeesionService.logedpublic(session) == null) {
 			attributes.addFlashAttribute("error", "Please Sign UP");
 			return "redirect:/public/login";
 		}
-		 if (bindingResult.hasErrors()) {
-				attributes.addFlashAttribute("error", "Error: "+bindingResult.getFieldError().getDefaultMessage());
-				return "redirect:/public/dashbord";
-		    } 
+		if (bindingResult.hasErrors()) {
+			attributes.addFlashAttribute("error", "Error: " + bindingResult.getFieldError().getDefaultMessage());
+			return "redirect:/public/dashbord";
+		}
 		try {
-			PublicLogin loged=publicSeesionService.logedpublic(session);
+			PublicLogin loged = publicSeesionService.logedpublic(session);
 			complain.setPublicid(loged);
 			complainRepository.save(complain);
 			attributes.addFlashAttribute("success", "complain added");
@@ -67,4 +71,6 @@ public class PublicDashboardController {
 		return "redirect:/public/dashbord";
 
 	}
+
+	
 }

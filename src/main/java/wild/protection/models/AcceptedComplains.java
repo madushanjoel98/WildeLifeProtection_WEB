@@ -2,6 +2,10 @@ package wild.protection.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 @Entity
 public class AcceptedComplains {
 
