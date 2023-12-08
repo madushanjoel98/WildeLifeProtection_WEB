@@ -34,7 +34,6 @@ public class PublicHomeController {
 	@GetMapping("/register")
 	public String loadmainRegisterPage(Model model) {
 		model.addAttribute("reg", new PublicLogin());
-		
 		model.addAttribute("country",countriesRepository.findAll());
 		model.addAttribute(Commoncontexts.PAGE_MODEL, "public/login/publicRegister.html");
 		return "page";
@@ -51,7 +50,11 @@ public class PublicHomeController {
 		return "redirect:/public/login";
 	}
 	@GetMapping("/login")
-	public String loadmailogin(Model model) {
+	public String loadmailogin(Model model,HttpSession session) {
+		if (publicSeesionService.logedpublic(session) != null) {
+		
+			return "redirect:/public/dashbord";
+		}
 		model.addAttribute("reg", new PublicLogin());
 		
 		model.addAttribute("country",countriesRepository.findAll());
