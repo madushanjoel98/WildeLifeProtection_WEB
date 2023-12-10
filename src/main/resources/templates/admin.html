@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="\comons\header.html">
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- <div th:replace="/public/comps/navigation.html"></div> -->
+        <!-- <div th:replace="/public/comps/sidbarhtml.html"></div> -->
+      
+
+        <div class="content-page">
+
+            <div class="content">
+                <div th:if="${page}">
+                    <div th:insert="${page}"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Footer fragment -->
+    <div th:replace="\comons\footer.html"></div>
+</body>
+
+</html>
