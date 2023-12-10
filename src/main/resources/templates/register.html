@@ -1,9 +1,33 @@
 <!DOCTYPE html> 
 <html lang="en" xmlns:th="http://www.thymeleaf.org"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Register</title> 
+<head t> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <!-- App favicon -->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+
+    <!--Morris Chart CSS -->
+    <!-- <link rel="stylesheet" th:href="@{/plugins/morris/morris.css}" /> -->
+
+    <!-- sweet alerts -->
+    <link th:href="@{/plugins/sweet-alert2/sweetalert2.min.css}" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+    <!-- App css -->
+    <link th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/css/icons.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/css/metismenu.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/css/app.css}" rel="stylesheet" type="text/css" />
+    <!-- your custom css -->
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/assets/js/pixijs.js}"></script>
+    <script th:src="@{/assets/js/comman.js}"></script>
+    
     <style>
         /* Add your styles for better appearance */
         /* Example styles: */
@@ -56,8 +80,24 @@
             <label for="confirmPassword"><b>Confirm Password</b></label> 
             <input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" required> 
 
+            <label for="countryid"><b>Admin Country</b></label> 
+            <select th:field="*{countryid}" id="countryid">
+                <option th:each="item : ${countrylist}" th:value="${item.id}" th:text="${item.name}">Option Text</option>
+            </select>
+            <label for="confirmPassword"><b>Admin Type</b></label> 
+            <select th:field="*{adminTypes}">
+                <option th:each="item : ${rolelist}" th:value="${item.admintyID}" th:text="${item.name}">Option Text</option>
+            </select>
+
             <button type="submit" class="registerbtn">Register</button> 
         </form> 
     </div> 
+    <script>
+        $(document).ready(function () {
+          $('#countryid').selectize({
+              sortField: 'text'
+          });
+      });
+    </script>
 </body> 
 </html>

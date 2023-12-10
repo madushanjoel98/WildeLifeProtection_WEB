@@ -33,6 +33,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wild.protection.configs.SecurityConfigs;
 import wild.protection.configs.SecurityUserDetailsService;
 import wild.protection.models.Admin;
+import wild.protection.repository.AdminTypeRespos;
+import wild.protection.repository.CountriesRepository;
 import wild.protection.repository.UserRepository;
 
 @Controller
@@ -45,6 +47,12 @@ public class LoginController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private UserRepository userre;
+	
+	@Autowired
+	AdminTypeRespos adminTypeRespos;
+	@Autowired
+	CountriesRepository countriesRepository;
+	
     @GetMapping(value = "/login")
     public String adminLogin(Model model,RedirectAttributes redirectAttributes) {
     	model.addAttribute("loginu", new Admin());
@@ -70,15 +78,17 @@ public class LoginController {
     @PostMapping(value = "/registers")
     public String addUser(@ModelAttribute Admin admin) {
     	Admin user = new Admin();
-        user.setUsername(admin.getUsername());
-        user.setPassword(passwordEncoder.encode(admin.getPassword()));
-        user.setAccountNonLocked(true);
-        userre.save(user);
+        
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        admin.setAccountNonLocked(true);
+        userre.save(admin);
         return "redirect:/admin/login?"; // Redirect to login page after registration
     }
 
     @GetMapping("/register")
     public String register(Model model) {
+    	model.addAttribute("rolelist", adminTypeRespos.findAll());
+    	model.addAttribute("countrylist", countriesRepository.findAll());
     	model.addAttribute("reg", new Admin());
         return "register.html"; // Update with the correct view name
     }

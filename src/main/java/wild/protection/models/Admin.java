@@ -39,8 +39,12 @@ public class Admin implements UserDetails {
     @Column
     private String username;
     
-    @Column
-    private String role;
+    
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "adminty_id", nullable = false)
+    private AdminTypes adminTypes;
+    
     
     @JsonIgnore
     @ManyToMany(mappedBy = "accessforAdmins")
@@ -111,13 +115,7 @@ public class Admin implements UserDetails {
         this.countryid = countryid;
     }
 
-    public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
+   
 
 	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -147,6 +145,22 @@ public class Admin implements UserDetails {
 
 	public void setAccountNonLocked(Boolean accountNonLocked) {
 		this.accountNonLocked = accountNonLocked;
+	}
+
+	public AdminTypes getAdminTypes() {
+		return adminTypes;
+	}
+
+	public void setAdminTypes(AdminTypes adminTypes) {
+		this.adminTypes = adminTypes;
+	}
+
+	public Set<RejectResons> getRejectComplain() {
+		return rejectComplain;
+	}
+
+	public void setRejectComplain(Set<RejectResons> rejectComplain) {
+		this.rejectComplain = rejectComplain;
 	}
 
 }
