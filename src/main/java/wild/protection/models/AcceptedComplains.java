@@ -21,6 +21,8 @@ public class AcceptedComplains {
             strategy = GenerationType.SEQUENCE,
             generator = "primary_sequence"
     )
+
+
     private Long idAccepts;
 
     @Column(nullable = false, length = 45)
