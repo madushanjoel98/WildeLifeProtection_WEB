@@ -9,88 +9,80 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class PublicLogin {
 
-    @Id
-    @Column(nullable = false, updatable = false)
-    @SequenceGenerator(
-            name = "primary_sequence",
-            sequenceName = "primary_sequence",
-            allocationSize = 1,
-            initialValue = 10000
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "primary_sequence"
-    )
-    private Long publicid;
+	@Id
+	@Column(nullable = false, updatable = false)
+	@SequenceGenerator(name = "primary_sequence", sequenceName = "primary_sequence", allocationSize = 1, initialValue = 10000)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_sequence")
+	private Long publicid;
 
-    @Column(nullable = false, unique = true, length = 45)
-    private String email;
+	@Column(nullable = false, unique = true, length = 45)
+	private String email;
 
-    @Column(unique = true, length = 45)
-    private String mobilenumber;
+	@Column(unique = true, length = 45)
+	private String mobilenumber;
 
-    @Column(nullable = false, length = 512)
-    private String password;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "publicid")
-    private Set<PublicComplain> publicidPublicComplains =new HashSet();
+	@JsonIgnore
+	@Column(nullable = false, length = 512)
+	private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "countryid_id", nullable = false)
-    private Countries countryid;
+	@JsonIgnore
+	@OneToMany(mappedBy = "publicid")
+	private Set<PublicComplain> publicidPublicComplains = new HashSet();
 
-    public Long getPublicid() {
-        return publicid;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "countryid_id", nullable = false)
+	private Countries countryid;
 
-    public void setPublicid(final Long publicid) {
-        this.publicid = publicid;
-    }
+	public Long getPublicid() {
+		return publicid;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setPublicid(final Long publicid) {
+		this.publicid = publicid;
+	}
 
-    public void setEmail(final String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getMobilenumber() {
-        return mobilenumber;
-    }
+	public void setEmail(final String email) {
+		this.email = email;
+	}
 
-    public void setMobilenumber(final String mobilenumber) {
-        this.mobilenumber = mobilenumber;
-    }
+	public String getMobilenumber() {
+		return mobilenumber;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setMobilenumber(final String mobilenumber) {
+		this.mobilenumber = mobilenumber;
+	}
 
-    public void setPassword(final String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public Set<PublicComplain> getPublicidPublicComplains() {
-        return publicidPublicComplains;
-    }
+	public void setPassword(final String password) {
+		this.password = password;
+	}
 
-    public void setPublicidPublicComplains(final Set<PublicComplain> publicidPublicComplains) {
-        this.publicidPublicComplains = publicidPublicComplains;
-    }
+	public Set<PublicComplain> getPublicidPublicComplains() {
+		return publicidPublicComplains;
+	}
 
-    public Countries getCountryid() {
-        return countryid;
-    }
+	public void setPublicidPublicComplains(final Set<PublicComplain> publicidPublicComplains) {
+		this.publicidPublicComplains = publicidPublicComplains;
+	}
 
-    public void setCountryid(final Countries countryid) {
-        this.countryid = countryid;
-    }
+	public Countries getCountryid() {
+		return countryid;
+	}
+
+	public void setCountryid(final Countries countryid) {
+		this.countryid = countryid;
+	}
 
 }

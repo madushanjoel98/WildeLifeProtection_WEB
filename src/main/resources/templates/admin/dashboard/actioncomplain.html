@@ -1,0 +1,78 @@
+<div class="modal fade com-action" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel"> Update Company</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Form start -->
+
+                <div class="col-lg-6">
+
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Action</h4>
+
+                         
+                        </div>
+                    </div> <!-- end card -->
+                </div>
+
+                <!-- end -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+   
+    // $('#upcompanyname').val();
+    // $('#upcompanyemail').val();
+    // $('#upcompanyaddress').val();
+    // $('#upcontact1').val();
+    // $('#upcontact2').val();
+
+    $(document).ready(function () {
+        $("#companyup").submit(function (e) { 
+            e.preventDefault();
+
+            var data= {"idcompany": $('#upcompanyid').val(),
+            "companyName":  $('#upcompanyname').val(),
+            "address": $('#upcompanyaddress').val(),
+            "contactNo2": $('#upcontact2').val(),
+            "contactNo1": $('#upcontact1').val(),
+            "email": $('#upcompanyemail').val()
+        };
+            //alert(JSON.stringify(data));
+
+            $.ajax({
+                url: '/updateCompany',
+                type: 'POST',
+                contentType: 'application/json',
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: JSON.stringify(data),
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function (response) {
+
+                    showSubmissionNotification("success", response)
+                    loadCompany();
+                },
+                error: function (xhr, status, error) {
+                    showSubmissionNotification("error", xhr.responseText)
+                    console.log(xhr.responseText);
+
+                }
+            });
+
+
+        });
+      
+    });
+</script>

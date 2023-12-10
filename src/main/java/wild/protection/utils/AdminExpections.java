@@ -1,10 +1,10 @@
 package wild.protection.utils;
 
-public class PublicExpections extends Exception{
+public class AdminExpections extends Exception{
 
 	private String message;
 
-	public PublicExpections(String message) {
+	public AdminExpections(String message) {
 		super();
 		this.message = message;
 	}

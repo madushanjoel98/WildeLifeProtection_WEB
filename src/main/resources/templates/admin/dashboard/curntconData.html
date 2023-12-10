@@ -1,0 +1,64 @@
+<div>
+    <table id="mycountry" class="table">
+        <thead>
+            <tr>
+                <th>Item ID</th>
+                <th>Location</th>
+                <th>Country</th>
+                <th>User</th>
+                <th>User Country</th>
+                <th>Action</th>
+               
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+
+
+    function loadyourCountry() {
+        var table = $('#mycountry').DataTable({
+            destroy: true,
+            data: [],
+            columns: [
+                { data: 'pcompId' },
+                { data: 'locationDetails' },
+                { data: 'countries.name' },
+                { data: 'publicid.email' },
+                { data: 'publicid.countryid.name' },
+                {
+                    // Add a "Select" button
+                    data: null,
+                    render: function (data, type, row) {
+                        return '<button class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".com-action" onclick="selectMaincategory(' + row.pcompId + ')"><i class="ion ion-ios-sync"></i></button>';
+                    }
+                }
+            ]
+        });
+
+        $.ajax({
+            url: '/admin/getmyconcomplain',
+            type: 'GET',
+            contentType: 'application/json',
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function (response) {
+                // Handle the successful response from the API
+                console.log(response);
+
+                // Update DataTable with the new data
+                table.clear().rows.add(response.data).draw();
+            },
+            error: function (xhr, status, error) {
+                showSubmissionNotification("error", xhr);
+                console.log(xhr.responseText);
+            }
+        });
+    }
+</script>
