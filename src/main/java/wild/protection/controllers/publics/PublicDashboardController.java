@@ -13,12 +13,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import wild.protection.dto.request.ByIDRequest;
 import wild.protection.models.PublicComplain;
 import wild.protection.models.PublicLogin;
 import wild.protection.repository.CountriesRepository;
 import wild.protection.repository.PublicComplainRepository;
 import wild.protection.service.PublicSeesionService;
 import wild.protection.utils.Commoncontexts;
+import wild.protection.utils.JSONObj_Serial;
 
 @Controller
 @RequestMapping("/public")
@@ -70,16 +72,42 @@ public class PublicDashboardController {
     }
 
     @GetMapping(value = "/deleteComplain")
-    public String delete(@RequestParam(value = "comid") long compid, RedirectAttributes redirectAttributes) {
+    public String delete(@RequestParam(value = "comid") long compid, RedirectAttributes redirectAttributes, HttpSession session) {
+        if (publicSeesionService.logedpublic(session) == null) {
+            redirectAttributes.addFlashAttribute("error", "Please Sign UP");
+            return "redirect:/public/login";
+        }
         try {
+            if (publicSeesionService.logedpublic(session).getPublicid() != complainRepository.findById(compid).get().getPublicid().getPublicid()) {
+                redirectAttributes.addFlashAttribute("error", "Please Sign UP");
+                return "redirect:/public/dashbord";
+            }
             complainRepository.deleteById(compid);
-            redirectAttributes.addFlashAttribute(Commoncontexts.SUCCESS,"Comlain Successfully deleted");
+            redirectAttributes.addFlashAttribute(Commoncontexts.SUCCESS, "Comlain Successfully deleted");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
 
 
         return "redirect:/public/dashbord?";
+    }
+
+    @PostMapping(value = "/getbyComplainID")
+    private ResponseEntity<?> findbyComlainID(@RequestBody ByIDRequest request,HttpSession session) {
+        ResponseEntity<?> output = null;
+        if (publicSeesionService.logedpublic(session) == null) {
+            output = new ResponseEntity<>("ERROR user not Found", HttpStatus.BAD_REQUEST);
+            return output;
+        }
+        try {
+        	  PublicComplain complain = complainRepository.findById(request.getId()).get();
+          
+            output = new ResponseEntity<>(complain, HttpStatus.OK);
+        } catch (Exception e) {
+        	System.out.println(e.getMessage());
+            output = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return output;
     }
 
 }

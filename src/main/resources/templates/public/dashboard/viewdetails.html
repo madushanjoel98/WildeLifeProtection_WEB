@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel"> Update Company</h4>
+                <h4 class="modal-title" id="myLargeModalLabel"> VIEW Complain</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
@@ -14,11 +14,19 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <h4 class="header-title m-t-0 mb-4">Action</h4>
-
-                         
+                            <h4 class="header-title m-t-0 mb-4">Complain</h4>
+                            <p id="pubcomps"></p>
+                        <button id="editComp" class="btn btn-primary">Edit</button>
                         </div>
                     </div> <!-- end card -->
+                    <div class="card" id="editcard">
+
+                        <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Edit</h4>
+                          <div th:insert="/public/dashboard/editcompains.html"></div>
+                 
+                        </div>
+                    </div> 
                 </div>
 
                 <!-- end -->
@@ -26,3 +34,49 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    $(document).ready(function () {
+        $("#editcard").hide();
+        $("#editComp").click(function (e) { 
+            e.preventDefault();
+            $("#editcard").show();
+        });
+    });
+
+    function loadComplain(id) {
+        var formdata = {
+            id:id
+              
+               
+            }
+    
+
+            dataj = JSON.stringify(formdata);
+        $.ajax({
+            url: '/public/getbyComplainID',
+            type: 'POST',
+            contentType: 'application/json',
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            data: JSON.stringify(formdata),
+            success: function (response) {
+                console.log(response);
+                //alert(response.complain);
+                $("#pubcomps").html(response.complain);
+               
+
+            },
+            error: function (xhr, status, error) {
+                // Handle error, e.g., show an error message
+                alert("Error update MAin category" + xhr.responseText);
+                console.error('Error update MAin category:', xhr.responseText);
+            }
+        });
+    }
+
+</script>
