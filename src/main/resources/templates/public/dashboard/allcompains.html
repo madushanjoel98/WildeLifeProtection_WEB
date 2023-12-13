@@ -5,12 +5,14 @@
             <div class="card-body">
                 <div th:if="${item.review_status == 0}">
                     <span class="label label-warning">Pending</span>
+                    <a class="btn btn-danger" th:href="@{'/public/deleteComplain?comid=' + ${item.pcompId}}"><i class="ion ion-md-remove-circle"></i></a>
                 </div>
                 <div th:if="${item.review_status == 1}">
                     <span class="label label-primary">Accepted</span>
                 </div>
                 <div th:if="${item.review_status == 2}">
                     <span class="label label-danger">Reject</span>
+
                 </div>
                 
                

@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import wild.protection.models.PublicComplain;
@@ -26,51 +23,63 @@ import wild.protection.utils.Commoncontexts;
 @Controller
 @RequestMapping("/public")
 public class PublicDashboardController {
-	@Autowired
-	PublicSeesionService publicSeesionService;
-	@Autowired
-	PublicComplainRepository complainRepository;
-	@Autowired
-	CountriesRepository countriesRepository;
+    @Autowired
+    PublicSeesionService publicSeesionService;
+    @Autowired
+    PublicComplainRepository complainRepository;
+    @Autowired
+    CountriesRepository countriesRepository;
 
-	@GetMapping("/dashbord")
-	public String dashborad(Model model, HttpSession session, RedirectAttributes attributes) {
-		if (publicSeesionService.logedpublic(session) == null) {
-			attributes.addFlashAttribute("error", "Please Sign UP");
-			return "redirect:/public/login";
-		}
-		model.addAttribute("allcompains",complainRepository.findByPublicid(publicSeesionService.logedpublic(session)) );
-		model.addAttribute("country", countriesRepository.findAll());
-		model.addAttribute("complainr", new PublicComplain());
-		model.addAttribute("user", publicSeesionService.logedpublic(session));
-		model.addAttribute(Commoncontexts.PAGE_MODEL, "/public/dashboard/dashboardmain.html");
-		return "velonicpage.html";
-	}
+    @GetMapping("/dashbord")
+    public String dashborad(Model model, HttpSession session, RedirectAttributes attributes) {
+        if (publicSeesionService.logedpublic(session) == null) {
+            attributes.addFlashAttribute("error", "Please Sign UP");
+            return "redirect:/public/login";
+        }
+        model.addAttribute("allcompains", complainRepository.findByPublicid(publicSeesionService.logedpublic(session)));
+        model.addAttribute("country", countriesRepository.findAll());
+        model.addAttribute("complainr", new PublicComplain());
+        model.addAttribute("user", publicSeesionService.logedpublic(session));
+        model.addAttribute(Commoncontexts.PAGE_MODEL, "/public/dashboard/dashboardmain.html");
+        return "velonicpage.html";
+    }
 
-	@PostMapping("/addComplaint")
-	public String addComplain(RedirectAttributes attributes, HttpSession session,
-			@ModelAttribute @Valid PublicComplain complain, BindingResult bindingResult) {
-		if (publicSeesionService.logedpublic(session) == null) {
-			attributes.addFlashAttribute("error", "Please Sign UP");
-			return "redirect:/public/login";
-		}
-		if (bindingResult.hasErrors()) {
-			attributes.addFlashAttribute("error", "Error: " + bindingResult.getFieldError().getDefaultMessage());
-			return "redirect:/public/dashbord";
-		}
-		try {
-			PublicLogin loged = publicSeesionService.logedpublic(session);
-			complain.setPublicid(loged);
-			complainRepository.save(complain);
-			attributes.addFlashAttribute("success", "complain added");
-		} catch (Exception e) {
-			attributes.addFlashAttribute("error", e.getMessage());
-			return "redirect:/public/dashbord";
-		}
+    @PostMapping("/addComplaint")
+    public String addComplain(RedirectAttributes attributes, HttpSession session,
+                              @ModelAttribute @Valid PublicComplain complain, BindingResult bindingResult) {
+        if (publicSeesionService.logedpublic(session) == null) {
+            attributes.addFlashAttribute("error", "Please Sign UP");
+            return "redirect:/public/login";
+        }
+        if (bindingResult.hasErrors()) {
+            attributes.addFlashAttribute("error", "Error: " + bindingResult.getFieldError().getDefaultMessage());
+            return "redirect:/public/dashbord";
+        }
+        try {
+            PublicLogin loged = publicSeesionService.logedpublic(session);
+            complain.setPublicid(loged);
+            complainRepository.save(complain);
+            attributes.addFlashAttribute("success", "complain added");
+        } catch (Exception e) {
+            attributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/public/dashbord";
+        }
 
-		return "redirect:/public/dashbord";
+        return "redirect:/public/dashbord";
 
-	}
+    }
 
-	
+    @GetMapping(value = "/deleteComplain")
+    public String delete(@RequestParam(value = "comid") long compid, RedirectAttributes redirectAttributes) {
+        try {
+            complainRepository.deleteById(compid);
+            redirectAttributes.addFlashAttribute(Commoncontexts.SUCCESS,"Comlain Successfully deleted");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
+
+
+        return "redirect:/public/dashbord?";
+    }
+
 }

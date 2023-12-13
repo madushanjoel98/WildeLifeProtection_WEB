@@ -17,7 +17,7 @@ public class SecurityConfigs extends WebSecurityConfigurerAdapter {
          .csrf().disable()
          .authorizeRequests()
              .antMatchers("/admin/register**").permitAll()
-             .antMatchers("/img/**","/public/**","/css/**", "/js/**", "/assets/**", "/plugins/**","/").permitAll()
+             .antMatchers("/img/**","/public/**","/css/**", "/js/**", "/assets/**", "/plugins/**","/","/DataTables/**").permitAll()
              .anyRequest().authenticated().and().formLogin().loginPage("/admin/login").permitAll()
              .and()
          .logout()
@@ -26,6 +26,7 @@ public class SecurityConfigs extends WebSecurityConfigurerAdapter {
              .clearAuthentication(true)
              .permitAll();
     }
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
