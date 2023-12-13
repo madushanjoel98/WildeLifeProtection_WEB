@@ -11,22 +11,41 @@
 
                 <div class="col-lg-6">
 
+
                     <div class="card">
 
                         <div class="card-body">
                             <h4 class="header-title m-t-0 mb-4">Complain</h4>
                             <p id="pubcomps"></p>
-                        <button id="editComp" class="btn btn-primary">Edit</button>
+                            <button id="editComp" class="btn btn-primary">Edit</button>
                         </div>
                     </div> <!-- end card -->
                     <div class="card" id="editcard">
 
                         <div class="card-body">
                             <h4 class="header-title m-t-0 mb-4">Edit</h4>
-                          <div th:insert="/public/dashboard/editcompains.html"></div>
-                 
+                            <div th:insert="/public/dashboard/editcompains.html"></div>
+
                         </div>
-                    </div> 
+                    </div>
+                    <!-- Accept Reson -->
+                    <div class="card" id="aareacson">
+
+                        <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Accept Action</h4>
+
+                        </div>
+                    </div>
+                    <!-- Accept end -->
+                    <!-- Reject Reson -->
+                    <div class="card" id="rreason">
+
+                        <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Reject Reason</h4>
+
+                        </div>
+                    </div>
+                    <!-- end rejecct Reson -->
                 </div>
 
                 <!-- end -->
@@ -37,21 +56,25 @@
 <script>
     $(document).ready(function () {
         $("#editcard").hide();
-        $("#editComp").click(function (e) { 
+        $("#editComp").click(function (e) {
             e.preventDefault();
             $("#editcard").show();
+        });
+        $("#upclose").click(function (e) {
+            e.preventDefault();
+            $("#editcard").hide();
         });
     });
 
     function loadComplain(id) {
         var formdata = {
-            id:id
-              
-               
-            }
-    
+            id: id
 
-            dataj = JSON.stringify(formdata);
+
+        }
+
+
+        dataj = JSON.stringify(formdata);
         $.ajax({
             url: '/public/getbyComplainID',
             type: 'POST',
@@ -66,10 +89,19 @@
             data: JSON.stringify(formdata),
             success: function (response) {
                 console.log(response);
+                if (response.review_status != 0) {
+                    $("#editComp").hide();
+                }
+                status_vadlidatione(response.review_status);
                 //alert(response.complain);
+                $("#upid").val(response.pcompId);
                 $("#pubcomps").html(response.complain);
-               
-
+                $("#uptitle").val(response.title);
+                $("#upcomde").val(response.complain);
+                $("#uplocation").val(response.locationDetails);
+                $("#upcountsel")
+                    .find("option[value=" + response.countries.id + "]")
+                    .attr("selected", "selected");
             },
             error: function (xhr, status, error) {
                 // Handle error, e.g., show an error message
@@ -77,6 +109,29 @@
                 console.error('Error update MAin category:', xhr.responseText);
             }
         });
+
+
+    }
+
+    function status_vadlidatione(reason) {
+        if(reason === 1){
+            //aareacson
+            $("#editComp").hide();
+            $("#aareacson").show();
+            $("#rreason").hide();
+        }else
+        if(reason === 2){
+            //rreason
+            $("#editComp").hide();
+            $("#aareacson").hide();
+            $("#rreason").show();
+        }else 
+        if(reason === 0){
+            $("#editComp").show();
+            $("#aareacson").hide();
+            $("#rreason").hide();
+
+        }
     }
 
 </script>

@@ -65,6 +65,7 @@ public class PublicComplain {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
     private Countries countries;
+    
     @JsonIgnore
     @OneToMany(mappedBy = "complaintid")
     private Set<RejectResons> complaintidRejectResonses=new HashSet<>();

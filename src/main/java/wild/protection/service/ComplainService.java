@@ -10,5 +10,5 @@ import java.util.List;
 public interface ComplainService {
     List<PublicComplain> getPublicComplainbyCountry(int id) throws AdminExpections;
     List<PublicComplain> getALLCompains() throws AdminExpections;
-
+    public void update(long complainId,PublicComplain newComplain) throws Exception;
 }
