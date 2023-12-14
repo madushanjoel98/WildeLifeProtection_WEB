@@ -5,11 +5,64 @@
 <div>
 
     <div th:insert="admin\dashboard\commonts.html"></div>
-  
-   
+    <div th:if="${error}">
+        <div class="alert alert-danger" role="alert" th:text="${error}">
+           
+          </div>
+    </div>
+    <div th:if="${success}">
+        <div class="alert alert-primary" role="alert" th:text="${success}">
+          
+          </div>
+    </div>
     <div th:insert="admin\dashboard\tabController.html"></div>
 
 </div>
 
 </div>
 <div th:insert="admin/dashboard/actioncomplain.html"></div>
+
+<script>
+    function loadComplainAdmin(id) {
+       var formdata = {
+           id: id
+
+
+       }
+
+
+       dataj = JSON.stringify(formdata);
+       $.ajax({
+           url: '/admin/getbyComplainID',
+           type: 'POST',
+           contentType: 'application/json',
+           crossDomain: true,
+           xhrFields: {
+               withCredentials: true
+           },
+           headers: {
+               'X-Requested-With': 'XMLHttpRequest'
+           },
+           data: JSON.stringify(formdata),
+           success: function (response) {
+               console.log(response);
+               if(response.review_status != 0){
+                $("#acnav").hide();
+               }
+               //alert(response.pcompId);
+               $("#acpid").val(response.pcompId);
+               $("#rcpid").val(response.pcompId);
+               //rcpid
+               //alert(response.complain);
+              
+           },
+           error: function (xhr, status, error) {
+               // Handle error, e.g., show an error message
+               alert("Error update MAin category" + xhr.responseText);
+               console.error('Error update MAin category:', xhr.responseText);
+           }
+       });
+
+
+   }
+</script>

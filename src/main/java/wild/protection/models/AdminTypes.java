@@ -14,8 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AdminTypes {
 	  @Id 
 	  @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +26,17 @@ public class AdminTypes {
 	  @Column
 	  private String name;
 	   
-	  
+	  @JsonIgnore
+	  @OneToMany(mappedBy = "adminTypes")
+	  private Set<Admin> admintyAdmins=new HashSet<>();
+
+	public Set<Admin> getAdmintyAdmins() {
+		return admintyAdmins;
+	}
+
+	public void setAdmintyAdmins(Set<Admin> admintyAdmins) {
+		this.admintyAdmins = admintyAdmins;
+	}
 
 	public int getAdmintyID() {
 		return admintyID;

@@ -15,8 +15,16 @@
 
                         <div class="card-body">
                             <h4 class="header-title m-t-0 mb-4">Action</h4>
+                            <div class="row">
+                                <div id="acnav">
+                                    <button id="navacceptbtn" class="btn btn-success acbutton">Accept</button>
+                                    <button id="navrecjectbtn" class="btn btn-danger acbutton">Reject</button>
+                                </div>
 
-                         
+                                <div id="acceptForm" th:insert="admin/dashboard/accepts/accepform.html"></div>
+                                <div id="rejectform" th:insert="admin/dashboard/reject/rejectform.html"></div>
+                            </div>
+
                         </div>
                     </div> <!-- end card -->
                 </div>
@@ -27,7 +35,7 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script>
-   
+
     // $('#upcompanyname').val();
     // $('#upcompanyemail').val();
     // $('#upcompanyaddress').val();
@@ -35,16 +43,47 @@
     // $('#upcontact2').val();
 
     $(document).ready(function () {
-        $("#companyup").submit(function (e) { 
+        $("#acceptForm").hide();
+        $("#rejectform").hide();
+
+        $("#navacceptbtn").click(function (e) {
+            e.preventDefault();
+            $("#acceptForm").show();
+            $("#rejectform").hide();
+        });
+        //
+        $("#navrecjectbtn").click(function (e) {
+            e.preventDefault();
+            $("#acceptForm").hide();
+            $("#rejectform").show();
+        });
+
+        $(".acbutton").click(function (e) {
+            e.preventDefault();
+            $("#acnav").hide();
+        });
+        $("#acceptbtnclose").click(function (e) {
+            e.preventDefault();
+            $("#acnav").show();
+            $("#acceptForm").hide();
+        });
+$("#rejectbtnclose").click(function (e) { 
+    e.preventDefault();
+    $("#acnav").show();
+    $("#rejectform").hide();
+});
+
+        $("#companyup").submit(function (e) {
             e.preventDefault();
 
-            var data= {"idcompany": $('#upcompanyid').val(),
-            "companyName":  $('#upcompanyname').val(),
-            "address": $('#upcompanyaddress').val(),
-            "contactNo2": $('#upcontact2').val(),
-            "contactNo1": $('#upcontact1').val(),
-            "email": $('#upcompanyemail').val()
-        };
+            var data = {
+                "idcompany": $('#upcompanyid').val(),
+                "companyName": $('#upcompanyname').val(),
+                "address": $('#upcompanyaddress').val(),
+                "contactNo2": $('#upcontact2').val(),
+                "contactNo1": $('#upcontact1').val(),
+                "email": $('#upcompanyemail').val()
+            };
             //alert(JSON.stringify(data));
 
             $.ajax({
@@ -73,6 +112,9 @@
 
 
         });
-      
+
     });
+   
+
 </script>
+

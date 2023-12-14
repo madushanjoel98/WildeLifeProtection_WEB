@@ -33,7 +33,7 @@
       <div th:if="${admintypeid == 1}">
       <div id="wwc" class="tab-content">
         <h2>Main Category</h2>
-      <!-- Content -->
+     <div th:insert="/admin/dashboard/allwordcomplain.html"></div>
       </div>
     </div>
       <!-- end -->
@@ -79,7 +79,7 @@
             loadyourCountry();
           }
           if(tabid==="#wwc"){
-           // loadItemtable();
+            loadwwCountry();
           }
          
          

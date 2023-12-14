@@ -36,6 +36,7 @@ import wild.protection.models.Admin;
 import wild.protection.repository.AdminTypeRespos;
 import wild.protection.repository.CountriesRepository;
 import wild.protection.repository.UserRepository;
+import wild.protection.utils.EncryptionText;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -53,6 +54,8 @@ public class LoginController {
 	@Autowired
 	CountriesRepository countriesRepository;
 	
+	EncryptionText ence=EncryptionText.getInstance();
+	
     @GetMapping(value = "/login")
     public String adminLogin(Model model,RedirectAttributes redirectAttributes) {
     	model.addAttribute("loginu", new Admin());
@@ -61,18 +64,27 @@ public class LoginController {
     }
     @PostMapping("/login")
     public String processLogin(@ModelAttribute Admin adimin,RedirectAttributes redirectAttributes) {
-      
+    	   try {
         if (authenticateUser(adimin.getUsername(), adimin.getPassword())) {
             // Set authentication details manually (not recommended in a real-world application)
             setAuthenticationDetails(adimin.getUsername());
-
-            return "redirect:/dashboard";
+   
+		String text=ence.encrypt("hello");
+	
+            return "redirect:/dashboard?"+text;
         } else {
             // Handle authentication failure
             String error = "Invalid username and/or password!";
             redirectAttributes.addFlashAttribute("error", error);
             return "redirect:/admin/login?error";
         }
+    	   } catch (Exception e) {
+    		   logger.error(e.getMessage());
+    			// TODO Auto-generated catch block
+    			 redirectAttributes.addFlashAttribute("error", e.getMessage());
+    			 
+    	         return "redirect:/admin/login?error";
+    		}
     }
    
     @PostMapping(value = "/registers")

@@ -1,5 +1,5 @@
 <div>
-    <table id="mycountry" class="table">
+    <table id="wwcountry" class="table">
         <thead>
             <tr>
                 <th>Item ID</th>
@@ -18,8 +18,8 @@
 
 
 
-    function loadyourCountry() {
-        var table = $('#mycountry').DataTable({
+    function loadwwCountry() {
+        var table = $('#wwcountry').DataTable({
             destroy: true,
             data: [],
             columns: [
@@ -46,7 +46,7 @@
         });
 
         $.ajax({
-            url: '/admin/getmyconcomplain',
+            url: '/admin/getwwComplains',
             type: 'GET',
             contentType: 'application/json',
             crossDomain: true,

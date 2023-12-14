@@ -6,14 +6,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 //ok
+
 @Entity
 @Table(name = "admin")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Admin implements UserDetails {
 
     @Id
@@ -24,6 +28,7 @@ public class Admin implements UserDetails {
             allocationSize = 1,
             initialValue = 10000
     )
+    @JsonIgnore
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "primary_sequence"
@@ -32,7 +37,8 @@ public class Admin implements UserDetails {
 
     @Column
     private Boolean accountNonLocked;
-
+    
+    @JsonIgnore
     @Column
     private String password;
 
@@ -40,7 +46,7 @@ public class Admin implements UserDetails {
     private String username;
     
     
-    
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "adminty_id", nullable = false)
     private AdminTypes adminTypes;
@@ -48,7 +54,7 @@ public class Admin implements UserDetails {
     
     @JsonIgnore
     @ManyToMany(mappedBy = "accessforAdmins")
-    private Set<Accesslevel> accessforAccesslevels;
+    private Set<Accesslevel> accessforAccesslevels=new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "countryid_id")
@@ -56,11 +62,11 @@ public class Admin implements UserDetails {
 
     @JsonIgnore
     @OneToMany(mappedBy = "admin")
-    private Set<AcceptedComplains> acceptComplain;
+    private Set<AcceptedComplains> acceptComplain=new HashSet<>();;
     
     @JsonIgnore
     @OneToMany(mappedBy = "admin")
-    private Set<RejectResons> rejectComplain;
+    private Set<RejectResons> rejectComplain=new HashSet<>();;
 
 	public Set<AcceptedComplains> getAcceptComplain() {
 		return acceptComplain;

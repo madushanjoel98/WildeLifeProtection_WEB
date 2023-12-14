@@ -31,18 +31,18 @@
                     <!-- Accept Reson -->
                     <div class="card" id="aareacson">
 
-                        <div class="card-body">
+                        <div class="card-body bg-primary">
                             <h4 class="header-title m-t-0 mb-4">Accept Action</h4>
-
+                            <p id="acceptAction"></p>
                         </div>
                     </div>
                     <!-- Accept end -->
                     <!-- Reject Reson -->
                     <div class="card" id="rreason">
 
-                        <div class="card-body">
-                            <h4 class="header-title m-t-0 mb-4">Reject Reason</h4>
-
+                        <div class="card-body bg-danger">
+                            <h4 class="header-title m-t-0 mb-4 text-light">Reject Reason</h4>
+                            <p class="text-light" id="rejectReason"></p>
                         </div>
                     </div>
                     <!-- end rejecct Reson -->
@@ -114,24 +114,67 @@
     }
 
     function status_vadlidatione(reason) {
-        if(reason === 1){
+        if (reason === 1) {
             //aareacson
             $("#editComp").hide();
             $("#aareacson").show();
             $("#rreason").hide();
-        }else
-        if(reason === 2){
-            //rreason
-            $("#editComp").hide();
-            $("#aareacson").hide();
-            $("#rreason").show();
-        }else 
-        if(reason === 0){
-            $("#editComp").show();
-            $("#aareacson").hide();
-            $("#rreason").hide();
+        } else
+            if (reason === 2) {
+                //rreason
+                $("#editComp").hide();
+                $("#aareacson").hide();
+                $("#rreason").show();
+            } else
+                if (reason === 0) {
+                    $("#editComp").show();
+                    $("#aareacson").hide();
+                    $("#rreason").hide();
+
+                }
+    }
+
+
+    function loadstatus(id) {
+        var formdata = {
+            id: id
+
 
         }
+
+
+        dataj = JSON.stringify(formdata);
+        $.ajax({
+            url: '/public/getStatus',
+            type: 'POST',
+            contentType: 'application/json',
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            data: JSON.stringify(formdata),
+            success: function (response) {
+                console.log(response);
+                if (response.review_statusCode === 1) {
+                    $("#acceptAction").html(response.accepted.action);
+                }
+                if (response.review_statusCode === 2) {
+
+                    $("#rejectReason").html(response.rejected.reason);
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle error, e.g., show an error message
+                alert("Error" + xhr.responseText);
+                console.error('Error:', xhr.responseText);
+            }
+        });
+
+
     }
 
 </script>

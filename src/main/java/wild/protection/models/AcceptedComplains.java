@@ -1,11 +1,12 @@
 package wild.protection.models;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
 @Entity
 public class AcceptedComplains {
 
@@ -38,8 +39,20 @@ public class AcceptedComplains {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
+    
+    @Column(nullable = false)
+    private Date accepttDate;
+    
 
-    public Admin getAdmin() {
+    public Date getComplaintDate() {
+		return accepttDate;
+	}
+
+	public void setComplaintDate(Date complaintDate) {
+		this.accepttDate = complaintDate;
+	}
+
+	public Admin getAdmin() {
 		return admin;
 	}
 
