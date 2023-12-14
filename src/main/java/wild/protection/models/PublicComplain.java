@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.NonNull;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -70,6 +71,8 @@ public class PublicComplain {
     @OneToMany(mappedBy = "complaintid")
     private Set<RejectResons> complaintidRejectResonses=new HashSet<>();
 
+    @Column(nullable = false)
+    private Date complaintDate;
     
     public int getReview_status() {
 		return review_status;
@@ -153,6 +156,14 @@ public class PublicComplain {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Date getComplaintDate() {
+		return complaintDate;
+	}
+
+	public void setComplaintDate(Date complaintDate) {
+		this.complaintDate = complaintDate;
 	}
 
 }

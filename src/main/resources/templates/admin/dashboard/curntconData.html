@@ -7,14 +7,15 @@
                 <th>Country</th>
                 <th>User</th>
                 <th>User Country</th>
+                <th>Complaint Date</th>
                 <th>Action</th>
                
             </tr>
         </thead>
     </table>
 </div>
-
 <script>
+
 
 
     function loadyourCountry() {
@@ -27,11 +28,18 @@
                 { data: 'countries.name' },
                 { data: 'publicid.email' },
                 { data: 'publicid.countryid.name' },
+                { 
+                    // Pass the actual longvalue for 'complaintDate'
+                    data: 'complaintDate', 
+                    render: function(data) {
+                        return dateConverter(data);
+                    }
+                },
                 {
-                    // Add a "Select" button
+                    // Fix the function name to 'selectMainCategory'
                     data: null,
                     render: function (data, type, row) {
-                        return '<button class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".com-action" onclick="selectMaincategory(' + row.pcompId + ')"><i class="ion ion-ios-sync"></i></button>';
+                        return '<button class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".com-action" onclick="selectMainCategory(' + row.pcompId + ')"><i class="ion ion-ios-sync"></i></button>';
                     }
                 }
             ]
@@ -62,3 +70,4 @@
         });
     }
 </script>
+

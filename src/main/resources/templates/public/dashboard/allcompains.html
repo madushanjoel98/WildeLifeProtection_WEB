@@ -26,6 +26,7 @@
                 <div class="">
                     <h2 class="m-t-0 text-white"><b th:text="${item.title}"></b></h2>
                     <p class="text-white" th:text="${item.locationDetails}"></p>
+                    <p class="text-white" th:text="${item.complaintDate}"></p>
                     <p class="text-white mb-0" th:text="${item.countries.name}"></p>
                     <div class="row">
                         <div th:if="${item.review_status == 0}">

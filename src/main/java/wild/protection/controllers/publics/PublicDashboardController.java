@@ -1,5 +1,7 @@
 package wild.protection.controllers.publics;
 
+import java.util.Date;
+
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -64,6 +66,7 @@ public class PublicDashboardController {
 		}
 		try {
 			PublicLogin loged = publicSeesionService.logedpublic(session);
+			complain.setComplaintDate(new Date());
 			complain.setPublicid(loged);
 			complainRepository.save(complain);
 			attributes.addFlashAttribute("success", "complain added");
