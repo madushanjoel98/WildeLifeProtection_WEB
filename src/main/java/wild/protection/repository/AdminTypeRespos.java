@@ -7,8 +7,7 @@ import wild.protection.models.AdminTypes;
 
 public interface AdminTypeRespos extends JpaRepository<AdminTypes, Integer>{
 
-//INSERT INTO `admin_types` (`name`) VALUES
-//('Master'),('Minor');
+
 
 	
 	
