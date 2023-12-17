@@ -16,4 +16,5 @@ public interface ComplaintActionService {
 	public void acceptChange(AcceptedComplains acceptAction,Admin admin,long publicComplainid) throws AdminExpections;
 	public void rejectChange(RejectResons rejectResons,Admin admin,long publicComplainid) throws AdminExpections;
     public StatusDTO getStatus(long compid)throws AdminExpections;
+    public void retoreComplain(long compid) throws AdminExpections;
 }

@@ -7,9 +7,12 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AcceptAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import wild.protection.controllers.admins.AdminDashboardController;
 import wild.protection.dto.StatusDTO;
 import wild.protection.models.AcceptedComplains;
 import wild.protection.models.Admin;
@@ -27,7 +30,7 @@ import wild.protection.utils.UserContextUsage;
 @Transactional
 public class CompainActionIMPL implements ComplaintActionService {
 	private final int ACCEPT = 1, REJECT = 2, PENDDING = 0;
-
+	final Logger logger = LoggerFactory.getLogger(AdminDashboardController.class);
 	@Autowired
 	ComplainService complainService;
 
@@ -114,6 +117,20 @@ public class CompainActionIMPL implements ComplaintActionService {
 			throw new AdminExpections("Fail to get Status:" + e.getMessage());
 		}
 		return output;
+	}
+
+	@Override
+	public void retoreComplain(long compid) throws AdminExpections {
+		try {
+			PublicComplain complain = complainRepository.findById(compid)
+					.orElseThrow(() -> new EntityNotFoundException("Complain not Found"));
+			complain.setReview_status(PENDDING);
+			acceptedComplainsRepository.deleteByComplain(complain);
+			rejectResonsRepository.deleteByComplaintid(complain);
+			
+		} catch (Exception e) {
+			throw new AdminExpections("Restore Failed:"+e.getMessage());
+		}
 	}
 
 }

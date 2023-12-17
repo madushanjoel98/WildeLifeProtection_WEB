@@ -12,4 +12,5 @@ import java.util.List;
 
 public interface AcceptedComplainsRepository extends JpaRepository<AcceptedComplains, Long> {
 	List<AcceptedComplains> findByComplain(PublicComplain complain);
+	void deleteByComplain(PublicComplain complain);
 }

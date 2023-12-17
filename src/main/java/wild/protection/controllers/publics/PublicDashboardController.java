@@ -166,6 +166,11 @@ public class PublicDashboardController {
 			return output;
 		}
 		try {
+	long compubid=		complainRepository.findById(request.getId()).get().getPublicid().getPublicid();
+			if(publicSeesionService.logedpublic(session).getPublicid()!=compubid) {
+				logger.error("User id not Match with Compain user");
+				throw new Exception("User id not Match with Compain user");
+			}
 			
 			output = new ResponseEntity<>(complaintActionService.getStatus(request.getId()), HttpStatus.OK);
 		} catch (Exception e) {

@@ -20,13 +20,34 @@
                                     <button id="navacceptbtn" class="btn btn-success acbutton">Accept</button>
                                     <button id="navrecjectbtn" class="btn btn-danger acbutton">Reject</button>
                                 </div>
+                                <div th:if="${admintypeid == 1}">
+                                   <div id="rediv">
+                                    <button id="navretorebtn" class="btn btn-warning">Restore</button>
+                                   </div>
 
+                                </div>
                                 <div id="acceptForm" th:insert="admin/dashboard/accepts/accepform.html"></div>
                                 <div id="rejectform" th:insert="admin/dashboard/reject/rejectform.html"></div>
                             </div>
 
                         </div>
                     </div> <!-- end card -->
+                    <div class="card" id="aareacson" >
+
+                        <div class="card-body bg-primary">
+                            <h4 class="header-title m-t-0 mb-4">Accept Action</h4>
+                            <p id="acceptAction"></p>
+                        </div>
+                    </div>
+
+                    <div class="card" id="rreason" >
+
+                        <div class="card-body bg-danger">
+                            <h4 class="header-title m-t-0 mb-4 text-light">Reject Reason</h4>
+                            <p class="text-light" id="rejectReason"></p>
+                        </div>
+                    </div>
+                    <!-- end rejecct Reson -->
                 </div>
 
                 <!-- end -->
@@ -114,7 +135,65 @@ $("#rejectbtnclose").click(function (e) {
         });
 
     });
+    function loadadminstatus(id) {
+        var formdata = {
+            id: id
+
+
+        }
+
+
+        dataj = JSON.stringify(formdata);
+        $.ajax({
+            url: '/admin/getStatus',
+            type: 'POST',
+            contentType: 'application/json',
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            data: JSON.stringify(formdata),
+            success: function (response) {
+                console.log(response);
+                if (response.review_statusCode === 1) {
+                    $("#aareacson").show();
+                    $("#rreason").hide();
+                    $("#acceptAction").html(response.accepted.action);
+                }
+                if (response.review_statusCode === 2) {
+                    $("#aareacson").hide();
+                    $("#rreason").show();
+                    $("#rejectReason").html(response.rejected.reason);
+                }
+                if (response.review_statusCode === 0) {
+                    $("#aareacson").hide();
+                    $("#rreason").hide();
+                    $("#rediv").hide();
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle error, e.g., show an error message
+                alert("Error" + xhr.responseText);
+                console.error('Error:', xhr.responseText);
+            }
+        });
+
+
+    }
+
+
    
 
 </script>
 
+<script th:if="${admintypeid == 1}">
+$(document).ready(function () {
+    $("#navretorebtn").click(function (e) { 
+        var id=$("#acpid").val();
+        retoreComplin(id)
+    });
+});
+</script>

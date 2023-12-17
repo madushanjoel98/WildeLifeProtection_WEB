@@ -3,6 +3,8 @@ package wild.protection.controllers.admins;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AcceptAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +35,7 @@ import wild.protection.utils.UserContextUsage;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminDashboardController {
+	final Logger logger = LoggerFactory.getLogger(AdminDashboardController.class);
 	@Autowired
 	private SecurityUserDetailsService userDetailsManager;
 
@@ -126,6 +129,31 @@ public class AdminDashboardController {
 		return output;
 	}
 	
+	@PostMapping(value = "/getStatus")
+	private ResponseEntity<?> getStatus(@RequestBody ByIDRequest request) {
+		ResponseEntity<?> output = null;
+		
+		try {
 	
+			output = new ResponseEntity<>(complaintActionService.getStatus(request.getId()), HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			output = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return output;
+	}
 	
+	@PostMapping(value = "/retoretheComplain")
+	private ResponseEntity<?> retoretheComplain(@RequestBody ByIDRequest request) {
+		ResponseEntity<?> output = null;
+		
+		try {
+			complaintActionService.retoreComplain(request.getId());
+			output = new ResponseEntity<>("Complain Retored", HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			output = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return output;
+	}
 }
