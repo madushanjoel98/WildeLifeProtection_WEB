@@ -14,7 +14,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputCity" class="col-form-label">Country</label>
-                            <select th:field="*{countries}" id="countsel" required class="form-control">
+                            <select th:field="*{countries}" id="countsel" required class="form-contro countryselect">
                                 <!-- <option value="">Select a Country...</option> -->
                                 <option th:each="item : ${country}" th:value="${item.id}" th:text="${item.name}">Option Text</option>
                             </select>
@@ -45,7 +45,7 @@
 </div>
 <script>
     $(document).ready(function () {
-      $('#countsel').selectize({
+      $('.countryselect').selectize({
           sortField: 'text'
       });
   });

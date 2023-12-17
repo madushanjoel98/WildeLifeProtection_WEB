@@ -1,9 +1,4 @@
-<!DOCTYPE html> 
-<html lang="en" xmlns:th="http://www.thymeleaf.org"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Register</title> 
+
     <style>
         /* Add your styles for better appearance */
         /* Example styles: */
@@ -38,8 +33,6 @@
             cursor: pointer;
         }
     </style>
-</head> 
-<body> 
     <div class="container"> 
         <h1>Register</h1> 
         <p>Please fill this form to create an account.</p>
@@ -56,8 +49,23 @@
             <label for="confirmPassword"><b>Confirm Password</b></label> 
             <input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" required> 
 
+            <label for="countryid"><b>Admin Country</b></label> 
+            <select th:field="*{countryid}" id="countryid">
+                <option th:each="item : ${countrylist}" th:value="${item.id}" th:text="${item.name}">Option Text</option>
+            </select>
+            <label for="confirmPassword"><b>Admin Type</b></label> 
+            <select th:field="*{adminTypes}">
+                <option th:each="item : ${rolelist}" th:value="${item.admintyID}" th:text="${item.name}">Option Text</option>
+            </select>
+
             <button type="submit" class="registerbtn">Register</button> 
         </form> 
     </div> 
-</body> 
-</html>
+    <script>
+        $(document).ready(function () {
+          $('#countryid').selectize({
+              sortField: 'text'
+          });
+      });
+    </script>
+

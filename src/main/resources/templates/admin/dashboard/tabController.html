@@ -1,0 +1,90 @@
+<div>
+    <style>
+        .tab-content {
+          display: none;
+          padding: 20px;
+          margin-top: 10px;
+          border: 1px solid #ddd;
+        }
+        .active-tab {
+          display: block;
+        }
+        .nav-tabs .nav-link.active {
+          color: #fff; /* Change the color to your preference */
+          background-color: #007bff; /* Change the background color to your preference */
+        }
+      </style>
+      
+      <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link" href="#ycoun">Your Country</a></li>
+        <div th:if="${admintypeid == 1}">
+            <li class="nav-item"><a class="nav-link" href="#wwc">World Wide</a></li>
+        </div>
+      
+       
+      </ul>
+      <!-- your Coutry -->
+      <div id="ycoun" class="tab-content active-tab">
+        <h2>Your Country</h2>
+        <p>This is the content of Tab 1.</p>
+        <div th:replace="admin\dashboard\curntconData.html"></div>
+      </div>
+      <!-- Item -->
+      <div th:if="${admintypeid == 1}">
+      <div id="wwc" class="tab-content">
+        <h2>Main Category</h2>
+     <div th:insert="/admin/dashboard/allwordcomplain.html"></div>
+      </div>
+    </div>
+      <!-- end -->
+   
+     
+      
+      
+      <script>
+        $(document).ready(function() {
+          // Show the default tab or the tab specified in the URL hash
+          showTab(window.location.hash || '#tab1');
+      
+          // Handle tab clicks
+          $('.nav-tabs a').on('click', function(e) {
+            e.preventDefault();
+            var targetTab = $(this).attr('href');
+            showTab(targetTab);
+            
+            // Update the URL hash without triggering a page reload
+            history.pushState(null, null, targetTab);
+          });
+      
+          // Handle back and forward button clicks
+          window.onpopstate = function() {
+            showTab(window.location.hash);
+          };
+      
+          function showTab(tabId) {
+            loaddata(tabId);
+            // Remove active class from all tabs
+            $('.nav-tabs .nav-link').removeClass('active');
+            // Add active class to the selected tab
+            $('.nav-tabs a[href="' + tabId + '"]').addClass('active');
+            // Hide all tabs
+            $('.tab-content').removeClass('active-tab').hide();
+            // Show the selected tab
+            $(tabId).addClass('active-tab').show();
+          }
+        });
+        function loaddata(tabid){
+          //Load Data table by clicking button 
+          if(tabid==="#ycoun"){
+            loadyourCountry();
+          }
+          if(tabid==="#wwc"){
+            loadwwCountry();
+          }
+         
+         
+      
+        }
+      </script>
+    
+</div>

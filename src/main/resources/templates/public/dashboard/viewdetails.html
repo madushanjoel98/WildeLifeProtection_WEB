@@ -1,0 +1,180 @@
+<div class="modal fade view-action" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel"> VIEW Complain</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Form start -->
+
+                <div class="col-lg-6">
+
+
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Complain</h4>
+                            <p id="pubcomps"></p>
+                            <button id="editComp" class="btn btn-primary">Edit</button>
+                        </div>
+                    </div> <!-- end card -->
+                    <div class="card" id="editcard">
+
+                        <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Edit</h4>
+                            <div th:insert="/public/dashboard/editcompains.html"></div>
+
+                        </div>
+                    </div>
+                    <!-- Accept Reson -->
+                    <div class="card" id="aareacson">
+
+                        <div class="card-body bg-primary">
+                            <h4 class="header-title m-t-0 mb-4">Accept Action</h4>
+                            <p id="acceptAction"></p>
+                        </div>
+                    </div>
+                    <!-- Accept end -->
+                    <!-- Reject Reson -->
+                    <div class="card" id="rreason">
+
+                        <div class="card-body bg-danger">
+                            <h4 class="header-title m-t-0 mb-4 text-light">Reject Reason</h4>
+                            <p class="text-light" id="rejectReason"></p>
+                        </div>
+                    </div>
+                    <!-- end rejecct Reson -->
+                </div>
+
+                <!-- end -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $(document).ready(function () {
+        $("#editcard").hide();
+        $("#editComp").click(function (e) {
+            e.preventDefault();
+            $("#editcard").show();
+        });
+        $("#upclose").click(function (e) {
+            e.preventDefault();
+            $("#editcard").hide();
+        });
+    });
+
+    function loadComplain(id) {
+        var formdata = {
+            id: id
+
+
+        }
+
+
+        dataj = JSON.stringify(formdata);
+        $.ajax({
+            url: '/public/getbyComplainID',
+            type: 'POST',
+            contentType: 'application/json',
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            data: JSON.stringify(formdata),
+            success: function (response) {
+                console.log(response);
+                if (response.review_status != 0) {
+                    $("#editComp").hide();
+                }
+                status_vadlidatione(response.review_status);
+                //alert(response.complain);
+                $("#upid").val(response.pcompId);
+                $("#pubcomps").html(response.complain);
+                $("#uptitle").val(response.title);
+                $("#upcomde").val(response.complain);
+                $("#uplocation").val(response.locationDetails);
+                $("#upcountsel")
+                    .find("option[value=" + response.countries.id + "]")
+                    .attr("selected", "selected");
+            },
+            error: function (xhr, status, error) {
+                // Handle error, e.g., show an error message
+                alert("Error update MAin category" + xhr.responseText);
+                console.error('Error update MAin category:', xhr.responseText);
+            }
+        });
+
+
+    }
+
+    function status_vadlidatione(reason) {
+        if (reason === 1) {
+            //aareacson
+            $("#editComp").hide();
+            $("#aareacson").show();
+            $("#rreason").hide();
+        } else
+            if (reason === 2) {
+                //rreason
+                $("#editComp").hide();
+                $("#aareacson").hide();
+                $("#rreason").show();
+            } else
+                if (reason === 0) {
+                    $("#editComp").show();
+                    $("#aareacson").hide();
+                    $("#rreason").hide();
+
+                }
+    }
+
+
+    function loadstatus(id) {
+        var formdata = {
+            id: id
+
+
+        }
+
+
+        dataj = JSON.stringify(formdata);
+        $.ajax({
+            url: '/public/getStatus',
+            type: 'POST',
+            contentType: 'application/json',
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            data: JSON.stringify(formdata),
+            success: function (response) {
+                console.log(response);
+                if (response.review_statusCode === 1) {
+                    $("#acceptAction").html(response.accepted.action);
+                }
+                if (response.review_statusCode === 2) {
+
+                    $("#rejectReason").html(response.rejected.reason);
+                }
+
+            },
+            error: function (xhr, status, error) {
+                // Handle error, e.g., show an error message
+                alert("Error" + xhr.responseText);
+                console.error('Error:', xhr.responseText);
+            }
+        });
+
+
+    }
+
+</script>

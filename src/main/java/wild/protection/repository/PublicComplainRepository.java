@@ -10,8 +10,9 @@ import java.util.Optional;
 
 public interface PublicComplainRepository extends JpaRepository<PublicComplain, Long> {
 
-//	@Query("SELECT pc FROM PublicComplain pc WHERE pc.publicid.id = ?1")
-//    Optional<PublicComplain> findByPublicid(Long publicId);
+	@Query("SELECT pc FROM PublicComplain pc WHERE pc.countries.id = ?1")
+	List<PublicComplain> findByCountry(int countyID);
 	
 	List<PublicComplain> findByPublicid(PublicLogin publicid);
+
 }

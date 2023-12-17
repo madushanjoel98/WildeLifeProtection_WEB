@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-4">Reject Form</h4>
+
+                <form th:object="${rrcomp}" method="post" th:action="@{/admin/rejectComplain}">
+
+
+                    <div  class="form-group">
+                       
+                        <input hidden id="rcpid" required  th:field="*{cID}" type="text" class="form-control"   placeholder="id">
+                    </div>
+                    <div class="form-row">
+                      
+                     
+                        <div class="form-group">
+                            <label for="inputAddress" class="col-form-label">Reject Reason</label>
+
+                            <textarea th:field="*{rejectResons.reason}" required class="form-control" cols="222"></textarea>
+
+                        </div>
+                    </div>
+                   
+                    <button type="submit" class="btn btn-danger">Reject</button>
+                    <button  id="rejectbtnclose" type="button" class="btn btn-primary">close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

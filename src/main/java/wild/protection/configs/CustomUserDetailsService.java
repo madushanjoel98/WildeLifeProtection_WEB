@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	Admin user = userRepository.findByUsername(username).get();
-      System.out.println(user.getRole());
+     
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .roles(user.getRole())
+                .roles(user.getAdminTypes().getName())
                 .build();
     }
 }

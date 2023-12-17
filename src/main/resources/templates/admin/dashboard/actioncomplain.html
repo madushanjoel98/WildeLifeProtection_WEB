@@ -1,0 +1,199 @@
+<div class="modal fade com-action" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel"> Update Company</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Form start -->
+
+                <div class="col-lg-6">
+
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Action</h4>
+                            <div class="row">
+                                <div id="acnav">
+                                    <button id="navacceptbtn" class="btn btn-success acbutton">Accept</button>
+                                    <button id="navrecjectbtn" class="btn btn-danger acbutton">Reject</button>
+                                </div>
+                                <div th:if="${admintypeid == 1}">
+                                   <div id="rediv">
+                                    <button id="navretorebtn" class="btn btn-warning">Restore</button>
+                                   </div>
+
+                                </div>
+                                <div id="acceptForm" th:insert="admin/dashboard/accepts/accepform.html"></div>
+                                <div id="rejectform" th:insert="admin/dashboard/reject/rejectform.html"></div>
+                            </div>
+
+                        </div>
+                    </div> <!-- end card -->
+                    <div class="card" id="aareacson" >
+
+                        <div class="card-body bg-primary">
+                            <h4 class="header-title m-t-0 mb-4">Accept Action</h4>
+                            <p id="acceptAction"></p>
+                        </div>
+                    </div>
+
+                    <div class="card" id="rreason" >
+
+                        <div class="card-body bg-danger">
+                            <h4 class="header-title m-t-0 mb-4 text-light">Reject Reason</h4>
+                            <p class="text-light" id="rejectReason"></p>
+                        </div>
+                    </div>
+                    <!-- end rejecct Reson -->
+                </div>
+
+                <!-- end -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+
+    // $('#upcompanyname').val();
+    // $('#upcompanyemail').val();
+    // $('#upcompanyaddress').val();
+    // $('#upcontact1').val();
+    // $('#upcontact2').val();
+
+    $(document).ready(function () {
+        $("#acceptForm").hide();
+        $("#rejectform").hide();
+
+        $("#navacceptbtn").click(function (e) {
+            e.preventDefault();
+            $("#acceptForm").show();
+            $("#rejectform").hide();
+        });
+        //
+        $("#navrecjectbtn").click(function (e) {
+            e.preventDefault();
+            $("#acceptForm").hide();
+            $("#rejectform").show();
+        });
+
+        $(".acbutton").click(function (e) {
+            e.preventDefault();
+            $("#acnav").hide();
+        });
+        $("#acceptbtnclose").click(function (e) {
+            e.preventDefault();
+            $("#acnav").show();
+            $("#acceptForm").hide();
+        });
+$("#rejectbtnclose").click(function (e) { 
+    e.preventDefault();
+    $("#acnav").show();
+    $("#rejectform").hide();
+});
+
+        $("#companyup").submit(function (e) {
+            e.preventDefault();
+
+            var data = {
+                "idcompany": $('#upcompanyid').val(),
+                "companyName": $('#upcompanyname').val(),
+                "address": $('#upcompanyaddress').val(),
+                "contactNo2": $('#upcontact2').val(),
+                "contactNo1": $('#upcontact1').val(),
+                "email": $('#upcompanyemail').val()
+            };
+            //alert(JSON.stringify(data));
+
+            $.ajax({
+                url: '/updateCompany',
+                type: 'POST',
+                contentType: 'application/json',
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: JSON.stringify(data),
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function (response) {
+
+                    showSubmissionNotification("success", response)
+                    loadCompany();
+                },
+                error: function (xhr, status, error) {
+                    showSubmissionNotification("error", xhr.responseText)
+                    console.log(xhr.responseText);
+
+                }
+            });
+
+
+        });
+
+    });
+    function loadadminstatus(id) {
+        var formdata = {
+            id: id
+
+
+        }
+
+
+        dataj = JSON.stringify(formdata);
+        $.ajax({
+            url: '/admin/getStatus',
+            type: 'POST',
+            contentType: 'application/json',
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            data: JSON.stringify(formdata),
+            success: function (response) {
+                console.log(response);
+                if (response.review_statusCode === 1) {
+                    $("#aareacson").show();
+                    $("#rreason").hide();
+                    $("#acceptAction").html(response.accepted.action);
+                }
+                if (response.review_statusCode === 2) {
+                    $("#aareacson").hide();
+                    $("#rreason").show();
+                    $("#rejectReason").html(response.rejected.reason);
+                }
+                if (response.review_statusCode === 0) {
+                    $("#aareacson").hide();
+                    $("#rreason").hide();
+                    $("#rediv").hide();
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle error, e.g., show an error message
+                alert("Error" + xhr.responseText);
+                console.error('Error:', xhr.responseText);
+            }
+        });
+
+
+    }
+
+
+   
+
+</script>
+
+<script th:if="${admintypeid == 1}">
+$(document).ready(function () {
+    $("#navretorebtn").click(function (e) { 
+        var id=$("#acpid").val();
+        retoreComplin(id)
+    });
+});
+</script>
