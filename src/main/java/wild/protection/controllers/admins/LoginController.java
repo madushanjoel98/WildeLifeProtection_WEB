@@ -60,33 +60,29 @@ public class LoginController {
     @GetMapping(value = "/login")
     public String adminLogin(Model model,RedirectAttributes redirectAttributes) {
     	model.addAttribute("loginu", new Admin());
-       // session.setAttribute("error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION"));
+
         return "/admin/view/login/adminlogin.html";
     }
     @PostMapping("/login")
-    public String processLogin(@ModelAttribute Admin adimin,RedirectAttributes redirectAttributes) {
-    	   try {
-        if (authenticateUser(adimin.getUsername(), adimin.getPassword())) {
-            // Set authentication details manually (not recommended in a real-world application)
-            setAuthenticationDetails(adimin.getUsername());
-   
-		String text=ence.encrypt("hello");
-	
-            return "redirect:/dashboard?"+text;
-        } else {
-            // Handle authentication failure
-            String error = "Invalid username and/or password!";
-            redirectAttributes.addFlashAttribute("error", error);
-            return "redirect:/admin/login?error";
+    public String processLogin(@ModelAttribute Admin adimin, RedirectAttributes redirectAttributes) {
+        try {
+            if (authenticateUser(adimin.getUsername(), adimin.getPassword())) {
+                setAuthenticationDetails(adimin.getUsername());
+               
+                return "redirect:/dashboard?";
+            } else {
+                String error = "Invalid username and or password!";
+                logger.error(error);
+                redirectAttributes.addFlashAttribute("error", error);
+                return "redirect:/admin/login";
+            }
+        } catch (BadCredentialsException | LockedException e) {
+            logger.error(e.getMessage());
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/login";
         }
-    	   } catch (Exception e) {
-    		   logger.error(e.getMessage());
-    			// TODO Auto-generated catch block
-    			 redirectAttributes.addFlashAttribute("error", e.getMessage());
-    			 
-    	         return "redirect:/admin/login?error";
-    		}
     }
+
    
     @PostMapping(value = "/registers")
     public String addUser(@ModelAttribute Admin admin) {
