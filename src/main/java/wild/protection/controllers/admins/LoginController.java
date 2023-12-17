@@ -36,6 +36,7 @@ import wild.protection.models.Admin;
 import wild.protection.repository.AdminTypeRespos;
 import wild.protection.repository.CountriesRepository;
 import wild.protection.repository.UserRepository;
+import wild.protection.utils.Commoncontexts;
 import wild.protection.utils.EncryptionText;
 
 @Controller
@@ -99,10 +100,11 @@ public class LoginController {
 
     @GetMapping("/register")
     public String register(Model model) {
+    	model.addAttribute(Commoncontexts.PAGE_MODEL, "/admin/register.html");
     	model.addAttribute("rolelist", adminTypeRespos.findAll());
     	model.addAttribute("countrylist", countriesRepository.findAll());
     	model.addAttribute("reg", new Admin());
-        return "register.html"; // Update with the correct view name
+    	return "admin.html"; // Update with the correct view name
     }
     
     private boolean authenticateUser(String username, String password) {
