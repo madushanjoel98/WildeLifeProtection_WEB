@@ -53,6 +53,9 @@ public class AdminDashboardController {
 		model.addAttribute(Commoncontexts.PAGE_MODEL, "/admin/dashboard/dashboardmain.html");
 		model.addAttribute("acccom", new AcceptCompalinDTO());
 		model.addAttribute("rrcomp", new RejectCompalinDTO());
+		logger.info("Count:"+ complainRepository.count());
+		model.addAttribute("allcomplains", complainRepository.count());
+		model.addAttribute("yourcomplains", complainRepository.findByCountry(usercontext.getLoginUSER().getCountryid().getId()).size());
 		model.addAttribute("admintypeid", usercontext.getLoginUSER().getAdminTypes().getAdmintyID());
 		return "admin.html";
 	}
