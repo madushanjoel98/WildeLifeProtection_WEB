@@ -26,8 +26,9 @@ public class PublicHomeController {
 	@Autowired
 	PublicSeesionService publicSeesionService;
 	
-	@GetMapping("/")
-	public String loadmainPage(Model model) {
+	
+	@GetMapping(value = {"/home","/"})
+	public String loadhomePage(Model model) {
 		model.addAttribute(Commoncontexts.PAGE_MODEL, "/public/publichome.html");
 		return "page";
 	}

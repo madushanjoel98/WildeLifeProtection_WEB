@@ -1,5 +1,5 @@
 <div>
-    <table id="wwcountry" class="table">
+    <table id="wwcountry" class="display nowrap" >
         <thead>
             <tr>
                 <th>Item ID</th>
@@ -8,6 +8,7 @@
                 <th>User</th>
                 <th>User Country</th>
                 <th>Complaint Date</th>
+                <th>Status</th>
                 <th>Action</th>
                
             </tr>
@@ -20,6 +21,7 @@
 
     function loadwwCountry() {
         var table = $('#wwcountry').DataTable({
+            
             destroy: true,
             data: [],
             columns: [
@@ -37,12 +39,20 @@
                 },
                 {
                     // Fix the function name to 'selectMainCategory'
+                    data: 'review_status',
+                    render: function (data, type, row) {
+                        return getSatusLayer(data);
+                    }
+                },
+                {
+                    // Fix the function name to 'selectMainCategory'
                     data: null,
                     render: function (data, type, row) {
                         return '<button class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".com-action" onclick="loadComplainAdmin(' + row.pcompId + ');"><i class="ion ion-ios-sync"></i></button>';
                     }
                 }
-            ]
+            ],
+            scrollY: true
         });
 
         $.ajax({

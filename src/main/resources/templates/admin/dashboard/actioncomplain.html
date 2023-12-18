@@ -159,11 +159,13 @@ $("#rejectbtnclose").click(function (e) {
             success: function (response) {
                 console.log(response);
                 if (response.review_statusCode === 1) {
+                    $("#rediv").show();
                     $("#aareacson").show();
                     $("#rreason").hide();
                     $("#acceptAction").html(response.accepted.action);
                 }
                 if (response.review_statusCode === 2) {
+                    $("#rediv").show();
                     $("#aareacson").hide();
                     $("#rreason").show();
                     $("#rejectReason").html(response.rejected.reason);
@@ -171,6 +173,7 @@ $("#rejectbtnclose").click(function (e) {
                 if (response.review_statusCode === 0) {
                     $("#aareacson").hide();
                     $("#rreason").hide();
+                    $("#acnav").show();
                     $("#rediv").hide();
                 }
             },

@@ -2,7 +2,7 @@
 
     <!-- LOGO -->
     <div class="topbar-left">
-        <a href="/" class="logo"> <span> <img
+        <a th:href="@{/admin/dashboard}" class="logo"> <span> <img
                 src="assets/images/logo.png" alt="" height="18">
         </span> <i> <img th:src="@{/assets/images/logo_sm.png}" alt="" height="22">
         </i>
@@ -66,10 +66,7 @@
                 </button>
             </li>
             <li class="hide-phone app-search">
-                <form role="search" class="">
-                    <input type="text" placeholder="Search..." class="form-control">
-                    <a href=""><i class="fa fa-search"></i></a>
-                </form>
+               
             </li>
         </ul>
 

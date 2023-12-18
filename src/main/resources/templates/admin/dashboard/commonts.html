@@ -1,7 +1,7 @@
 <div>
 
     <div class="row">
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-sm-6" th:if="${admintypeid == 1}">
             <div class="widget-panel widget-style-1 bg-pink">
                 <i class="mdi mdi-comment-multiple"></i> 
                 <h2 class="m-0 counter text-white" th:text="${allcomplains}">0</h2>
@@ -9,11 +9,27 @@
             </div>
         </div>
 
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-3 col-sm-6" >
             <div class="widget-panel widget-style-1 bg-primary">
                 <i class="mdi mdi-comment-multiple"></i> 
                 <h2 class="m-0 counter text-white" th:text="${yourcomplains}">0</h2>
                 <div>Your Country</div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6" th:if="${admintypeid == 1}">
+            <div class="widget-panel widget-style-1 bg-warning">
+                <i class="mdi mdi-comment-multiple"></i> 
+                <h2 class="m-0 counter text-white" th:text="${pendingcou}">0</h2>
+                <div>All Penddings</div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6" th:if="${admintypeid == 1}">
+            <div class="widget-panel widget-style-1 bg-warning">
+                <i class="mdi mdi-comment-multiple"></i> 
+                <h2 class="m-0 counter text-white" th:text="${getPbyc}">0</h2>
+                <div> Penddings your Country</div>
             </div>
         </div>
         <!-- <div class="col-md-3 col-sm-6">
