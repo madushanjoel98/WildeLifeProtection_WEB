@@ -44,6 +44,9 @@
             data: JSON.stringify(formdata),
             success: function (response) {
                 console.log(response);
+                $("#titl").html(response.title);
+                $("#cloc").html(response.locationDetails);
+                $("#comp").html(response.complain);
                 if (response.review_status === 0) {
                     $("#rreason").hide();
                     $("#aareacson").hide();

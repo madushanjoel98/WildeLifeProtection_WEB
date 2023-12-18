@@ -14,6 +14,22 @@
                     <div class="card">
 
                         <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Details</h4>
+                            <h3 ><span id="titl"></span></h3>
+                            <div class="row">
+                              
+                               <p><b>location:</b> <p id="cloc"></p></p>
+                              
+                            </div>
+                            <div class="row">
+                              
+                               <p><b>Complain:</b> <p id="comp"></p></p>
+                            </div>
+                        </div>
+                    </div> <!-- end card -->
+                    <div class="card">
+
+                        <div class="card-body">
                             <h4 class="header-title m-t-0 mb-4">Action</h4>
                             <div class="row">
                                 <div id="acnav">
@@ -158,6 +174,7 @@ $("#rejectbtnclose").click(function (e) {
             data: JSON.stringify(formdata),
             success: function (response) {
                 console.log(response);
+                
                 if (response.review_statusCode === 1) {
                     $("#rediv").show();
                     $("#aareacson").show();
