@@ -2,7 +2,9 @@ package wild.protection.service;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +13,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import wild.protection.controllers.admins.LoginController;
+import wild.protection.dto.request.ChangePassword;
+import wild.protection.models.PublicComplain;
 import wild.protection.models.PublicLogin;
 import wild.protection.repository.PublicLoginRepository;
 import wild.protection.utils.PublicExpections;
 
 @Service
+@Transactional
 public class PublicSeesionService {
 	  Logger logger = LoggerFactory.getLogger(PublicSeesionService.class);
 	public final static String loginPara = "publog";
@@ -73,4 +78,20 @@ public class PublicSeesionService {
 		}
 		
 	}
+	
+	public void changePassword(ChangePassword passwordChange, PublicLogin login) throws PublicExpections {
+        PublicLogin user = loginRepository.findById(login.getPublicid())
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        if (passwordChange.getNewPassword().length() > 16 || passwordChange.getNewPassword().length() < 8) {
+            String passwordLengthMessage = "Your password length " + passwordChange.getNewPassword().length();
+            throw new PublicExpections("Minimum length of the password is 8, and the maximum is 16. " + passwordLengthMessage);
+        }
+
+        if (!passwordEncoder.matches(passwordChange.getOldpassword(), user.getPassword())) {
+            throw new PublicExpections("Password doesn't match with the old password");
+        }
+
+        user.setPassword(passwordEncoder.encode(passwordChange.getNewPassword()));
+    }
 }

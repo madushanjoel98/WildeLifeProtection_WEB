@@ -20,5 +20,6 @@ public interface PublicComplainRepository extends JpaRepository<PublicComplain, 
 	
 	@Query("SELECT pc FROM PublicComplain pc WHERE pc.countries.id = ?1 AND pc.review_status= 0")
 	List<PublicComplain> findByPendingsbyCountry(int countyID);
+	
 
 }

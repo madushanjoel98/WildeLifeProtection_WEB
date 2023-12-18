@@ -22,6 +22,7 @@ import antlr.collections.List;
 import wild.protection.configs.SecurityUserDetailsService;
 import wild.protection.dto.request.AcceptCompalinDTO;
 import wild.protection.dto.request.ByIDRequest;
+import wild.protection.dto.request.ChangePassword;
 import wild.protection.dto.request.RejectCompalinDTO;
 import wild.protection.models.AcceptedComplains;
 import wild.protection.models.Admin;
@@ -50,7 +51,9 @@ public class AdminDashboardController {
 
 	@GetMapping("/dashboard")
 	public String register(Model model, RedirectAttributes redirectAttributes) {
+		
 		model.addAttribute(Commoncontexts.PAGE_MODEL, "/admin/dashboard/dashboardmain.html");
+		model.addAttribute("user", usercontext.getLoginUSER());
 		model.addAttribute("acccom", new AcceptCompalinDTO());
 		model.addAttribute("rrcomp", new RejectCompalinDTO());
 		model.addAttribute("pendingcou", complainRepository.findPenddings().size());
@@ -58,7 +61,7 @@ public class AdminDashboardController {
 		model.addAttribute("allcomplains", complainRepository.count());
 		model.addAttribute("yourcomplains", complainRepository.findByCountry(usercontext.getLoginUSER().getCountryid().getId()).size());
 		model.addAttribute("admintypeid", usercontext.getLoginUSER().getAdminTypes().getAdmintyID());
-		logger.info(""+usercontext.getLoginUSER().getAdminTypes().getAdmintyID());
+		
 		return "admin.html";
 	}
 
@@ -162,5 +165,14 @@ public class AdminDashboardController {
 		return output;
 	}
 	
+	@GetMapping(value="/userprofile")
+	public String userprofile(Model model) {
+		//templates/admin/userprofile/userprofile.html
+		model.addAttribute("user", usercontext.getLoginUSER());
+		model.addAttribute("changepass", new ChangePassword());
+		model.addAttribute("admintypeid", usercontext.getLoginUSER().getAdminTypes().getAdmintyID());
+		model.addAttribute(Commoncontexts.PAGE_MODEL, "/admin/userprofile/userprofile.html");
+		return "admin.html";
+	}
 	
 }

@@ -32,10 +32,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import wild.protection.configs.SecurityConfigs;
 import wild.protection.configs.SecurityUserDetailsService;
+import wild.protection.dto.request.ChangePassword;
 import wild.protection.models.Admin;
 import wild.protection.repository.AdminTypeRespos;
 import wild.protection.repository.CountriesRepository;
 import wild.protection.repository.UserRepository;
+import wild.protection.service.AdminService;
 import wild.protection.utils.Commoncontexts;
 import wild.protection.utils.EncryptionText;
 import wild.protection.utils.UserContextUsage;
@@ -57,7 +59,8 @@ public class LoginController {
 	CountriesRepository countriesRepository;
 	@Autowired
 	UserContextUsage usercontext;
-
+@Autowired
+AdminService adminService;
 	EncryptionText ence = EncryptionText.getInstance();
 
 	@GetMapping(value = "/login")
@@ -99,6 +102,7 @@ public class LoginController {
 
 	@GetMapping("/register")
 	public String register(Model model) {
+//			model.addAttribute("admintypeid", usercontext.getLoginUSER().getAdminTypes().getAdmintyID());
 		model.addAttribute(Commoncontexts.PAGE_MODEL, "/admin/register.html");
 		model.addAttribute("rolelist", adminTypeRespos.findAll());
 		model.addAttribute("countrylist", countriesRepository.findAll());
@@ -129,5 +133,23 @@ public class LoginController {
 				.getRequest();
 		WebAuthenticationDetails details = new WebAuthenticationDetails(request);
 		((UsernamePasswordAuthenticationToken) authentication).setDetails(details);
+	}
+	
+	@PostMapping(value = "/changepassword")
+	private String changepassword(@ModelAttribute ChangePassword changePassword,HttpSession session,RedirectAttributes attributes) {
+	
+		
+		String output = null;
+		
+		try {
+	
+			adminService.changePassword(changePassword, usercontext.getLoginUSER());
+			attributes.addFlashAttribute(Commoncontexts.SUCCESS, "Password Updated");
+			
+		} catch (Exception e) {
+			attributes.addFlashAttribute("error", e.getMessage());
+			
+		}
+		return "redirect:/admin/userprofile";
 	}
 }

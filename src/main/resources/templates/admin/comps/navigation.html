@@ -29,12 +29,13 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="text-overflow">
-                            <small>Welcome ! John</small>
+                         
+                            <small> Welcome  <span class="mt-5 m-b-5 font-18 ellipsis" th:text="${user.username}">Michael A. Franklin</span></small>
                         </h5>
                     </div>
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a th:href="@{/admin/userprofile}" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-circle"></i> <span>Profile</span>
                     </a>
 
@@ -73,3 +74,4 @@
     </nav>
 
 </div>
+<div th:replace="admin/comps/sidbarhtml.html"></div>
