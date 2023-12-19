@@ -49,7 +49,7 @@ public class AdminDashboardController {
 	@Autowired
 	ComplaintActionService complaintActionService;
 
-	@GetMapping("/dashboard")
+	@GetMapping(value = {"/dashboard","/"})
 	public String register(Model model, RedirectAttributes redirectAttributes) {
 		
 		model.addAttribute(Commoncontexts.PAGE_MODEL, "/admin/dashboard/dashboardmain.html");
