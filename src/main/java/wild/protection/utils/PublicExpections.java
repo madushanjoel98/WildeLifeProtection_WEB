@@ -1,12 +1,16 @@
 package wild.protection.utils;
 
-public class PublicExpections extends Exception{
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class PublicExpections extends Exception{
+	final Logger logger = LoggerFactory.getLogger(AdminExpections.class);
 	private String message;
 
 	public PublicExpections(String message) {
 		super();
 		this.message = message;
+		logger.error(message);
 	}
 
 	public String getMessage() {

@@ -17,56 +17,57 @@ import java.util.Set;
 
 @Entity
 @Table(name = "admin")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Admin implements UserDetails {
 
-    @Id
-    @Column(nullable = false, updatable = false)
-    @SequenceGenerator(
-            name = "primary_sequence",
-            sequenceName = "primary_sequence",
-            allocationSize = 1,
-            initialValue = 10000
-    )
-    @JsonIgnore
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "primary_sequence"
-    )
-    private Long userId;
+	@Id
+	@Column(nullable = false, updatable = false)
+	@SequenceGenerator(name = "primary_sequence", sequenceName = "primary_sequence", allocationSize = 1, initialValue = 10000)
+	@JsonIgnore
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_sequence")
+	private Long userId;
 
-    @Column
-    private Boolean accountNonLocked;
-    
-    @JsonIgnore
-    @Column
-    private String password;
+	@Column
+	private Boolean accountNonLocked;
 
-    @Column
-    private String username;
-    
-    
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "adminty_id", nullable = false)
-    private AdminTypes adminTypes;
-    
-    
-    @JsonIgnore
-    @ManyToMany(mappedBy = "accessforAdmins")
-    private Set<Accesslevel> accessforAccesslevels=new HashSet<>();
+	@JsonIgnore
+	@Column
+	private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "countryid_id")
-    private Countries countryid;
+	@Column(unique = true,nullable = false)
+	private String username;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "admin")
-    private Set<AcceptedComplains> acceptComplain=new HashSet<>();;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "admin")
-    private Set<RejectResons> rejectComplain=new HashSet<>();;
+	@Column(unique = true,nullable = false)
+	private String fullname;
+
+	@Column(nullable = false)
+	private String address;
+
+	@Column(nullable = false)
+	private String mobilenumber;
+
+	@Column(nullable = false)
+	private String emailaddress;
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "adminty_id", nullable = false)
+	private AdminTypes adminTypes;
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "accessforAdmins")
+	private Set<Accesslevel> accessforAccesslevels = new HashSet<>();
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "countryid_id")
+	private Countries countryid;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "admin")
+	private Set<AcceptedComplains> acceptComplain = new HashSet<>();;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "admin")
+	private Set<RejectResons> rejectComplain = new HashSet<>();;
 
 	public Set<AcceptedComplains> getAcceptComplain() {
 		return acceptComplain;
@@ -77,59 +78,56 @@ public class Admin implements UserDetails {
 	}
 
 	public Long getUserId() {
-        return userId;
-    }
+		return userId;
+	}
 
-    public void setUserId(final Long userId) {
-        this.userId = userId;
-    }
+	public void setUserId(final Long userId) {
+		this.userId = userId;
+	}
 
-    public Boolean getAccountNonLocked() {
-        return accountNonLocked;
-    }
+	public Boolean getAccountNonLocked() {
+		return accountNonLocked;
+	}
 
-   
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(final String password) {
-        this.password = password;
-    }
+	public void setPassword(final String password) {
+		this.password = password;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(final String username) {
-        this.username = username;
-    }
+	public void setUsername(final String username) {
+		this.username = username;
+	}
 
-    public Set<Accesslevel> getAccessforAccesslevels() {
-        return accessforAccesslevels;
-    }
+	public Set<Accesslevel> getAccessforAccesslevels() {
+		return accessforAccesslevels;
+	}
 
-    public void setAccessforAccesslevels(final Set<Accesslevel> accessforAccesslevels) {
-        this.accessforAccesslevels = accessforAccesslevels;
-    }
+	public void setAccessforAccesslevels(final Set<Accesslevel> accessforAccesslevels) {
+		this.accessforAccesslevels = accessforAccesslevels;
+	}
 
-    public Countries getCountryid() {
-        return countryid;
-    }
+	public Countries getCountryid() {
+		return countryid;
+	}
 
-    public void setCountryid(final Countries countryid) {
-        this.countryid = countryid;
-    }
-
-   
+	public void setCountryid(final Countries countryid) {
+		this.countryid = countryid;
+	}
 
 	@Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        return List.of(() -> "read");
-    }
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return List.of(() -> "read");
+	}
 
-    @Override
+	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
@@ -167,6 +165,38 @@ public class Admin implements UserDetails {
 
 	public void setRejectComplain(Set<RejectResons> rejectComplain) {
 		this.rejectComplain = rejectComplain;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMobilenumber() {
+		return mobilenumber;
+	}
+
+	public void setMobilenumber(String mobilenumber) {
+		this.mobilenumber = mobilenumber;
+	}
+
+	public String getEmailaddress() {
+		return emailaddress;
+	}
+
+	public void setEmailaddress(String emailaddress) {
+		this.emailaddress = emailaddress;
 	}
 
 }

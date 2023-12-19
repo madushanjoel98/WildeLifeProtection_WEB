@@ -1,0 +1,27 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="profile-bg-picture" style="background-image:url('/img/wildcover.jpeg')">
+                <span class="picture-bg-overlay"></span><!-- overlay -->
+            </div>
+            <!-- meta -->
+            <div class="profile-user-box">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="profile-user-img"><img th:src="@{/assets/images/users/avatar-1.jpg}" alt="" class="thumb-lg rounded-circle"></div>
+                        <div class="">
+                            <h4 class="mt-5 m-b-5 font-18 " th:text="${user.fullname}">Michael A. Franklin</h4>
+                            <h5 class="mt-5 m-b-5 font-18 " th:text="${user.username}">Michael A. Franklin</h5>
+                            <p class="font-13"  th:text="${user.adminTypes.name}"> </p>
+                            <p class="font-13"  th:text="${user.mobilenumber}"> </p>
+                            <p class="text-muted m-b-0"><small  th:text="${user.countryid.name}"></small></p>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <!--/ meta -->
+        </div>
+        </div>
+    </div>

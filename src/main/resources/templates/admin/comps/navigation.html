@@ -2,7 +2,7 @@
 
     <!-- LOGO -->
     <div class="topbar-left">
-        <a href="/" class="logo"> <span> <img
+        <a th:href="@{/admin/dashboard}" class="logo"> <span> <img
                 src="assets/images/logo.png" alt="" height="18">
         </span> <i> <img th:src="@{/assets/images/logo_sm.png}" alt="" height="22">
         </i>
@@ -29,12 +29,13 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="text-overflow">
-                            <small>Welcome ! John</small>
+                         
+                            
                         </h5>
                     </div>
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a th:href="@{/admin/userprofile}" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-circle"></i> <span>Profile</span>
                     </a>
 
@@ -66,13 +67,11 @@
                 </button>
             </li>
             <li class="hide-phone app-search">
-                <form role="search" class="">
-                    <input type="text" placeholder="Search..." class="form-control">
-                    <a href=""><i class="fa fa-search"></i></a>
-                </form>
+               
             </li>
         </ul>
 
     </nav>
 
 </div>
+<div th:replace="admin/comps/sidbarhtml.html"></div>

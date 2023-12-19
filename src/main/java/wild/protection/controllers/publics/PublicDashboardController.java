@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wild.protection.controllers.admins.LoginController;
 import wild.protection.dto.request.AcceptCompalinDTO;
 import wild.protection.dto.request.ByIDRequest;
+import wild.protection.dto.request.ChangePassword;
 import wild.protection.models.PublicComplain;
 import wild.protection.models.PublicLogin;
 import wild.protection.repository.CountriesRepository;
@@ -64,6 +65,19 @@ public class PublicDashboardController {
 		return "velonicpage.html";
 	}
 
+	@GetMapping("/userprofile")
+	public String userprofile(Model model, HttpSession session, RedirectAttributes attributes) {
+		if (publicSeesionService.logedpublic(session) == null) {
+			attributes.addFlashAttribute("error", "Please Sign UP");
+			return "redirect:/public/login";
+		}
+		model.addAttribute("changepass", new ChangePassword());
+	
+		model.addAttribute(Commoncontexts.PAGE_MODEL, "/public/userprofile/userprofile.html");
+		model.addAttribute("user", publicSeesionService.logedpublic(session));
+		return "velonicpage.html";
+	}
+	
 	@PostMapping("/addComplaint")
 	public String addComplain(RedirectAttributes attributes, HttpSession session,
 			@ModelAttribute @Valid PublicComplain complain, BindingResult bindingResult) {
@@ -178,6 +192,27 @@ public class PublicDashboardController {
 			output = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return output;
+	}
+	
+	@PostMapping(value = "/changepassword")
+	private String changepassword(@ModelAttribute ChangePassword changePassword,HttpSession session,RedirectAttributes attributes) {
+	
+		
+		String output = null;
+		if (publicSeesionService.logedpublic(session) == null) {
+			
+			return "redirect:/public/login";
+		}
+		try {
+	
+			publicSeesionService.changePassword(changePassword, publicSeesionService.logedpublic(session));
+			attributes.addFlashAttribute(Commoncontexts.SUCCESS, "Password Updated");
+			
+		} catch (Exception e) {
+			attributes.addFlashAttribute("error", e.getMessage());
+			
+		}
+		return "redirect:/public/userprofile";
 	}
 
 }

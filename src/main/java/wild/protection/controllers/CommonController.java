@@ -17,9 +17,9 @@ public String redirectd() {
 		return "redirect:/admin/dashboard";
 	}
 	}catch (Exception e) {
-		return "redirect:/public/";
+		return "redirect:/public/home";
 	}
-	return "redirect:/public/";
+	return "redirect:/public/home";
 }
 
 }

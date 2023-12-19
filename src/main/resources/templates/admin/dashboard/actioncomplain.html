@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel"> Update Company</h4>
+                <h4 class="modal-title" id="myLargeModalLabel"> Action</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
@@ -11,6 +11,22 @@
 
                 <div class="col-lg-6">
 
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h4 class="header-title m-t-0 mb-4">Details</h4>
+                            <h3 ><span id="titl"></span></h3>
+                            <div class="row">
+                              
+                               <p><b>location:</b> <p id="cloc"></p></p>
+                              
+                            </div>
+                            <div class="row">
+                              
+                               <p><b>Complain:</b> <p id="comp"></p></p>
+                            </div>
+                        </div>
+                    </div> <!-- end card -->
                     <div class="card">
 
                         <div class="card-body">
@@ -158,12 +174,15 @@ $("#rejectbtnclose").click(function (e) {
             data: JSON.stringify(formdata),
             success: function (response) {
                 console.log(response);
+                
                 if (response.review_statusCode === 1) {
+                    $("#rediv").show();
                     $("#aareacson").show();
                     $("#rreason").hide();
                     $("#acceptAction").html(response.accepted.action);
                 }
                 if (response.review_statusCode === 2) {
+                    $("#rediv").show();
                     $("#aareacson").hide();
                     $("#rreason").show();
                     $("#rejectReason").html(response.rejected.reason);
@@ -171,6 +190,7 @@ $("#rejectbtnclose").click(function (e) {
                 if (response.review_statusCode === 0) {
                     $("#aareacson").hide();
                     $("#rreason").hide();
+                    $("#acnav").show();
                     $("#rediv").hide();
                 }
             },

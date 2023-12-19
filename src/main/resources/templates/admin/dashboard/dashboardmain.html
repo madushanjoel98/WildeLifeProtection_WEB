@@ -1,5 +1,3 @@
-
-
 </div>
 
 <div>
@@ -46,15 +44,20 @@
             data: JSON.stringify(formdata),
             success: function (response) {
                 console.log(response);
+                $("#titl").html(response.title);
+                $("#cloc").html(response.locationDetails);
+                $("#comp").html(response.complain);
                 if (response.review_status === 0) {
                     $("#rreason").hide();
                     $("#aareacson").hide();
                     $("#rediv").hide();
+                    $("#acnav").show();
+                    $("#navacceptbtn").show();
+                    $("#navrecjectbtn").show();
                 }
-                if (response.review_status != 0) {
+                if (response.review_status !== 0) {
                     $("#acnav").hide();
-
-
+                    
                     loadadminstatus(id);
                 }
                 //alert(response.pcompId);
@@ -72,6 +75,21 @@
         });
 
 
+    }
+    function getSatusLayer(status) {
+        var layer = '';
+        if (status === 0) {
+
+            layer = ' <span class="label label-warning">Pending</span>'
+
+        }
+        if (status === 1) {
+            layer = ' <span class="label label-primary">Accepted</span>'
+        }
+        if (status === 2) {
+            layer = '<span class="label label-danger">Reject</span>'
+        }
+        return layer;
     }
 </script>
 

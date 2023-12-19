@@ -40,10 +40,21 @@
     <form id="regform" th:object="${reg}" th:action="@{/admin/registers}" method="post">
         <label for="username"><b>Username</b></label>
         <input th:field="*{username}" type="text" placeholder="Enter Username" name="username" id="username" required>
+        <label for="username"><b>Full name</b></label>
+        <input th:field="*{fullname}" type="text" placeholder="Enter Full name" name="username" id="username" required>
+
+        <label for="username"><b>Address</b></label>
+        <input th:field="*{address}" type="text" placeholder="Enter Username" name="username" id="username" required>
+
+        <label for="username"><b>Mobile number</b></label>
+        <input th:field="*{mobilenumber}" type="tel" placeholder="Enter Mobile number" name="username" id="username" required>
+
+        <label for="username"><b>Email</b></label>
+        <input th:field="*{emailaddress}" type="email" placeholder="Enter Username" name="username" id="username" required>
 
         <label for="password"><b>Password</b></label>
         <input th:field="*{password}" type="password" placeholder="Enter Password" name="password" id="password"
-               required>
+            required>
 
         <!-- Add confirmation password field -->
         <label for="confirmPassword"><b>Confirm Password</b></label>
