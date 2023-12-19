@@ -53,7 +53,7 @@ public class PublicSeesionService {
 		}
 			if(login.getPassword().length()>16 || login.getPassword().length()<8) {
 				String yourlength="Your password length "+login.getPassword().length();
-				throw new Exception("Minmum length of the password is:16 and Maximum is 16."+yourlength);
+				throw new Exception("Minmum length of the password is:8 and Maximum is 16."+yourlength);
 			}
 		logger.info(login.getPassword());
 		String passenocode=passwordEncoder.encode(login.getPassword());
